@@ -1,0 +1,131 @@
+// materialize
+@import '~materialize-css/sass/components/color-variables';
+@import '~materialize-css/sass/components/color-classes';
+@import '~materialize-css/sass/components/pulse';
+@import '~materialize-css/sass/components/variables';
+//
+@import '~materialize-css/sass/components/global';
+@import '~materialize-css/sass/components/cards';
+
+// vue-sax
+@import '~vue-dark-mode-switch/dist/vue-dark-mode-switch.css';
+@import '~vuesax/dist/vuesax.css';
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	box-shadow: none;
+	border-radius: 25px;
+	background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: transparent;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #90a4ae;
+}
+
+:root {
+	--vs-primary: 248, 186, 7;
+	--vs-success: 69, 94, 180;
+	--vs-danger: 242, 19, 93;
+	--vs-warn: 73, 72, 80;
+	--vs-dark: 11, 9, 9;
+	//
+	--dark: #0b0909;
+	--contras: #121212;
+	--primary: #f8ba07;
+	--secondary: #455eb4;
+}
+
+.primary {
+	background-color: var(--vs-primary);
+}
+.success {
+	background-color: var(--vs-success);
+}
+.danger {
+	background-color: var(--vs-danger);
+}
+.warn {
+	background-color: var(--vs-warn);
+}
+.dark {
+	background-color: var(--vs-dark);
+}
+.contras {
+	background-color: var(--contras);
+}
+
+.primary-text {
+	color: rgb(248, 186, 7);
+}
+.success-text {
+	color: rgb(69, 94, 180);
+}
+.danger-text {
+	color: rgb(242, 19, 93);
+}
+.warn-text {
+	color: rgb(73, 72, 80);
+}
+.dark-text {
+	color: rgb(11, 9, 9);
+}
+.contras-text {
+	color: var(--contras);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span {
+	font-family: 'Nunito', sans-serif;
+	color: #2c2c43;
+}
+
+body {
+	background-color: #121212;
+}
+
+.shadow {
+	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.btn-flot {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+}
+
+.vs-input {
+	width: 100%;
+}
+
+.vs-dialog__loading {
+	background: rgba(var(--vs-dark), 0.9);
+}
+
+// styles
+@import './config/table.scss';
+
+// ed-grid
+@import '~ed-grid/ed-grid';
+
+// querys
+@import 'config/querys.scss';
