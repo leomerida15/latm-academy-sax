@@ -12,7 +12,7 @@
 				</template>
 				Home
 			</vs-sidebar-item>
-			<vs-sidebar-item id="market">
+			<vs-sidebar-item id="market"> 
 				<template #icon>
 					<v-icon name="rocket"></v-icon>
 				</template>

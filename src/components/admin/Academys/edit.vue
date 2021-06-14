@@ -1,33 +1,50 @@
 <template>
 	<div class="academys-edit">
-		<vs-dialog prevent-close :blur="true" width="550px" not-center v-model="active">
+		<vs-dialog @close="exit" :loading="loading" prevent-close :blur="true" width="550px" not-center v-model="active">
 			<template #header>
 				<h4 class="primary-text not-margin">
-					{{ $t('academys.edit.title') }}
+					{{ $t('academys.edit.title', { name: files_valid }) }}
 				</h4>
+			</template>
+
+			<template>
+				<div class="center">
+					<vs-alert success :progress="progress" v-model="TimeAlertSuccess">
+						<template #title>
+							{{ $t('academys.edit.success') }}
+						</template>
+						<br />
+					</vs-alert>
+
+					<vs-alert danger :progress="progress" v-model="TimeAlertDanger">
+						<template #title>
+							{{ $t('academys.edit.danger') }}
+						</template>
+						<br />
+					</vs-alert>
+				</div>
 			</template>
 
 			<div class="con-content">
 				<div class="ed-grid m-grid-2">
 					<!-- names -->
-					<vs-input v-model="body.es.name" type="text" :label-placeholder="$t('academys.create.form.es.name')">
-						<template #icon #message-success>
-							<v-icon name="lock"></v-icon>
-						</template>
-					</vs-input>
-					<vs-input v-model="body.en.name" type="text" :label-placeholder="$t('academys.create.form.en.name')" />
+					<vs-input v-model="item.es.name" type="text" :label-placeholder="$t('academys.create.form.es.name')"></vs-input>
+					<vs-input v-model="item.en.name" type="text" :label-placeholder="$t('academys.create.form.en.name')" />
 
 					<!-- descriptions -->
-					<vs-input v-model="body.es.description" type="text" :label-placeholder="$t('academys.create.form.es.description')" />
-					<vs-input v-model="body.en.description" type="text" :label-placeholder="$t('academys.create.form.en.description')" />
+					<vs-input v-model="item.es.description" type="text" :label-placeholder="$t('academys.create.form.es.description')" />
+					<vs-input v-model="item.en.description" type="text" :label-placeholder="$t('academys.create.form.en.description')" />
 
 					<!-- styles -->
 					<div class="ed-grid s-grid-11">
+						<div class="s-cols-11">
+							<h5 style="margin: 0px">{{ $t('academys.create.form.color') }}</h5>
+						</div>
 						<div class="input-color-form s-cols-2">
-							<input v-model="body.style.color" id="input-color" class="input-color validate" type="color" />
+							<input v-model="item.style.color" id="input-color" class="input-color validate" type="color" />
 						</div>
 						<div class="input-field s-cols-9">
-							<vs-input v-model="body.style.color" type="text" />
+							<vs-input v-model="item.style.color" type="text" />
 						</div>
 					</div>
 
@@ -35,10 +52,10 @@
 						{{ $t('academys.create.form.image') }}
 						<input type="file" id="fileElem" @change="previewImage" accept="image/*" />
 					</vs-button>
-
 					<vs-card type="2">
 						<template #img>
-							<img :src="imageData" alt="" />
+							<div v-if="files_valid"><img :src="imageData" alt="" /></div>
+							<div v-else><img :src="item.image.secure_url" alt="" /></div>
 						</template>
 					</vs-card>
 				</div>
@@ -46,8 +63,8 @@
 
 			<template #footer>
 				<div class="con-footer">
-					<vs-button @click="create" :active="true">
-						{{ $t('academys.create.btn') }}
+					<vs-button @click="edit" :active="true">
+						{{ $t('academys.edit.btn') }}
 					</vs-button>
 				</div>
 			</template>
@@ -64,7 +81,7 @@
 <script lang="ts">
 	// modules
 	import Vue from 'vue';
-	import { mapActions } from 'vuex';
+	import { mapActions, mapState } from 'vuex';
 
 	export default Vue.extend({
 		name: 'academys-edit',
@@ -74,6 +91,7 @@
 		mounted() {},
 		data() {
 			return {
+				loading: false,
 				body: {
 					style: {
 						color: '#ffffff',
@@ -106,52 +124,71 @@
 				},
 				files_valid: false,
 				imageData: './img/plus.png',
+				TimeAlertSuccess: false,
+				TimeAlertDanger: false,
+				time: 4000,
+				progress: 0,
 			};
 		},
 		methods: {
-			...mapActions('Academys', ['getAcademys', 'createAcademy']),
-			async create() {
+			...mapActions('Academys', ['getAcademys', 'editAcademy']),
+			Alert(type: boolean) {
+				if (type) {
+					this.TimeAlertSuccess = true;
+
+					const interval = setInterval(() => {
+						this.progress++;
+					}, this.time / 100);
+
+					setTimeout(() => {
+						this.TimeAlertSuccess = false;
+						clearInterval(interval);
+						this.progress = 0;
+					}, this.time);
+				} else {
+					this.TimeAlertDanger = true;
+
+					const interval = setInterval(() => {
+						this.progress++;
+					}, this.time / 100);
+
+					setTimeout(() => {
+						this.TimeAlertDanger = false;
+						clearInterval(interval);
+						this.progress = 0;
+					}, this.time);
+				}
+			},
+			exit() {
+				this.$router.go(-1);
+			},
+			async edit() {
 				try {
+					let j: number = 0;
+					this.loading = true;
+
 					// define vars
-					const { image }: any = this.body;
-					const body = new FormData();
-					body.append('image', image);
+					if (this.files_valid === true) {
+						const { image }: any = this.item;
+						const body = new FormData();
+						body.append('image', image);
 
-					const img = await Vue.axios.post('/api/log/file/img/Academys', body);
-					this.body.image = img.data.info;
-					//
+						const img = await Vue.axios.post('/api/log/file/img/Academys', body);
 
-					this.body.style.view = /* html */ `
-          			<div class="input-color-container s-cols-2 m-cols-1">
-			    	  <input value="${this.body.style.color}" id="input-color" class="input-color validate" type="color" disabled />
-		      		</div>`;
+						this.item.image = img.data.info;
+					}
 
-					const resp: boolean = await this.createAcademy(this.body);
+					const resp: boolean = await this.editAcademy(this.item);
+					this.Alert(resp);
 					if (!resp) throw '';
 
 					await this.getAcademys();
 
-					this.body = {
-						style: {
-							color: '#ffffff',
-							view: '',
-						},
-						image: {},
-						es: {
-							name: '',
-							description: '',
-						},
-						en: {
-							name: '',
-							description: '',
-						},
-					};
 					this.files_valid = false;
-					// this.active = false;
 				} catch (err) {
 					console.error(err);
-					// this.active = false;
 				}
+				this.loading = false;
 			},
 			openFile() {
 				const el = document.getElementById('fileElem');
@@ -162,7 +199,7 @@
 			},
 			previewImage(event: any) {
 				const input = event.target;
-				this.body.image = event.target.files[0];
+				this.item.image = event.target.files[0];
 				this.files_valid = true;
 				if (input.files && input.files[0]) {
 					const reader = new FileReader();
@@ -173,7 +210,9 @@
 				}
 			},
 		},
-		computed: {},
+		computed: {
+			...mapState('Academys', ['item']),
+		},
 	});
 </script>
 

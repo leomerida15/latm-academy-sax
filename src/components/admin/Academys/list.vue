@@ -33,7 +33,7 @@
 					<vs-td>
 						<div class="ed-container">
 							<div class="s-50">
-								<vs-button icon circle color="primary">
+								<vs-button @click="editAlert(i)" icon circle color="primary">
 									<v-icon name="edit"></v-icon>
 								</vs-button>
 							</div>
@@ -106,6 +106,10 @@
 			...mapActions('Academys', ['deleteAcademys', 'getAcademys']),
 			deleteAlert(i: number) {
 				this.$router.push({ name: 'delete-Academy' });
+				this.define_item(i);
+			},
+			editAlert(i: number) {
+				this.$router.push({ name: 'edit-Academy' });
 				this.define_item(i);
 			},
 			openImg(imgName: string, url: string) {

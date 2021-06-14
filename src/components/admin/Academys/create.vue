@@ -9,11 +9,7 @@
 
 			<template>
 				<div class="center">
-					<vs-alert success :progress="progress" v-model="TimeAlertSuccess">
-						<template #title>
-							{{ $t('academys.create.form.success') }}
-						</template>
-					</vs-alert>
+					<vs-alert success :progress="progress" v-model="TimeAlertSuccess"></vs-alert>
 
 					<vs-alert danger :progress="progress" v-model="TimeAlertDanger">
 						<template #title>
@@ -59,7 +55,7 @@
 			<template #footer>
 				<div class="con-footer">
 					<vs-button @click="create" :active="true">
-						{{ $t('academys.create.btn') }}
+						{{ $t('academys.edit.btn') }}
 					</vs-button>
 				</div>
 			</template>
@@ -187,6 +183,7 @@
 							description: '',
 						},
 					};
+					this.imageData = '';
 					this.files_valid = false;
 				} catch (err) {
 					console.error(err);

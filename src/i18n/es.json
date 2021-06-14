@@ -38,7 +38,8 @@
 		"edit": {
 			"title": "Editar la Academy {name}?",
 			"success": "Academy editada",
-			"error": "La Academy no fue editada"
+			"error": "La Academy no fue editada",
+			"btn": "editar"
 		},
 		"table": {
 			"name": "nombre",
