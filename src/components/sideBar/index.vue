@@ -12,11 +12,17 @@
 				</template>
 				Home
 			</vs-sidebar-item>
-			<vs-sidebar-item id="market"> 
+			<vs-sidebar-item to="/admin/academys" id="Academys">
 				<template #icon>
 					<v-icon name="rocket"></v-icon>
 				</template>
 				Academys
+			</vs-sidebar-item>
+			<vs-sidebar-item to="/admin/institutes" id="Institutes">
+				<template #icon>
+					<v-icon name="rocket"></v-icon>
+				</template>
+				Institutes
 			</vs-sidebar-item>
 
 			<template #footer>

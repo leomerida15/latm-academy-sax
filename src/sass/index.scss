@@ -11,6 +11,9 @@
 @import '~vue-dark-mode-switch/dist/vue-dark-mode-switch.css';
 @import '~vuesax/dist/vuesax.css';
 
+// select
+@import './config/select.scss';
+
 /* width */
 ::-webkit-scrollbar {
 	width: 10px;

@@ -22,7 +22,6 @@
 						</template>
 						<br />
 					</vs-alert>
-					<br />
 				</div>
 			</template>
 
@@ -37,14 +36,14 @@
 					<vs-input v-model="item.en.description" type="text" :label-placeholder="$t('academys.create.form.en.description')" />
 
 					<!-- styles -->
-					<div class="ed-grid s-grid-5">
-						<div class="s-cols-5">
+					<div class="ed-grid s-grid-11">
+						<div class="s-cols-11">
 							<h5 style="margin: 0px">{{ $t('academys.create.form.color') }}</h5>
 						</div>
-						<div class="input-color-form s-cols-1">
+						<div class="input-color-form s-cols-2">
 							<input v-model="item.style.color" id="input-color" class="input-color validate" type="color" />
 						</div>
-						<div class="input-field s-cols-4">
+						<div class="input-field s-cols-9">
 							<vs-input v-model="item.style.color" type="text" />
 						</div>
 					</div>

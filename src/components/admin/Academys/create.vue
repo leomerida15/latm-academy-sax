@@ -22,19 +22,31 @@
 			<div class="con-content">
 				<div class="ed-grid m-grid-2">
 					<!-- names -->
-					<vs-input v-model="body.es.name" type="text" :label-placeholder="$t('academys.create.form.es.name')"></vs-input>
-					<vs-input v-model="body.en.name" type="text" :label-placeholder="$t('academys.create.form.en.name')" />
+					<vs-input v-model="body.es.name" type="text" :label-placeholder="$t('academys.create.form.es.name')">
+						<template v-if="validEmail" #message-success>
+							Email Valid
+						</template>
+					</vs-input>
+					<vs-input v-model="body.en.name" type="text" :label-placeholder="$t('academys.create.form.en.name')"></vs-input>
 
 					<!-- descriptions -->
-					<vs-input v-model="body.es.description" type="text" :label-placeholder="$t('academys.create.form.es.description')" />
-					<vs-input v-model="body.en.description" type="text" :label-placeholder="$t('academys.create.form.en.description')" />
+					<vs-input
+						v-model="body.es.description"
+						type="text"
+						:label-placeholder="$t('academys.create.form.es.description')"
+					></vs-input>
+					<vs-input
+						v-model="body.en.description"
+						type="text"
+						:label-placeholder="$t('academys.create.form.en.description')"
+					></vs-input>
 
 					<!-- styles -->
-					<div class="ed-grid s-grid-11">
-						<div class="input-color-form s-cols-2">
+					<div class="ed-grid s-grid-5">
+						<div class="input-color-form s-cols-1">
 							<input v-model="body.style.color" id="input-color" class="input-color validate" type="color" />
 						</div>
-						<div class="input-field s-cols-9">
+						<div class="input-field s-cols-4">
 							<vs-input v-model="body.style.color" type="text" />
 						</div>
 					</div>
@@ -55,11 +67,17 @@
 			<template #footer>
 				<div class="con-footer">
 					<vs-button @click="create" :active="true">
-						{{ $t('academys.edit.btn') }}
+						{{ $t('academys.create.btn') }}
 					</vs-button>
 				</div>
 			</template>
 		</vs-dialog>
+
+		<div class="btn-flot">
+			<vs-button circle to="/admin/academys/create">
+				<v-icon name="plus"></v-icon>
+			</vs-button>
+		</div>
 	</div>
 </template>
 
@@ -300,8 +318,8 @@
 		overflow: hidden;
 		width: 36px;
 		height: 36px;
-		border-radius: 40px;
 		top: 8px;
+		border-radius: 40px;
 		box-shadow: 1px 1px 3px 0px grey;
 	}
 

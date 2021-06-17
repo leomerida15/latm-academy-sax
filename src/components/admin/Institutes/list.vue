@@ -17,13 +17,6 @@
 						{{ dato.description }}
 					</vs-td>
 					<vs-td>
-						<div class="ed-container s-cols-2">
-							<div class="input-color-list">
-								<input disabled v-model="dato.color" id="input-color" class="input-color validate" type="color" />
-							</div>
-						</div>
-					</vs-td>
-					<vs-td>
 						<div class="ed-container">
 							<div>
 								<vs-button icon circle color="success" @click="openImg(dato.name, dato.image)">
@@ -84,7 +77,7 @@
 	// components
 
 	export default Vue.extend({
-		name: 'list',
+		name: 'Institutes-list',
 		props: ['keys', 'tdata'],
 		components: {},
 		mounted() {},
@@ -104,14 +97,13 @@
 			};
 		},
 		methods: {
-			...mapMutations('Academys', ['define_item']),
-			...mapActions('Academys', ['deleteAcademys', 'getAcademys']),
+			...mapMutations('Institutes', ['define_item']),
 			deleteAlert(i: number) {
-				this.$router.push({ name: 'delete-Academy' });
+				this.$router.push({ name: 'delete-Institute' });
 				this.define_item(i);
 			},
 			editAlert(i: number) {
-				this.$router.push({ name: 'edit-Academy' });
+				this.$router.push({ name: 'edit-Institute' });
 				this.define_item(i);
 			},
 			openImg(imgName: string, url: string) {
@@ -128,14 +120,3 @@
 		computed: {},
 	});
 </script>
-
-<style lang="scss">
-	.input-color-list {
-		position: relative;
-		overflow: hidden;
-		width: 36px;
-		height: 36px;
-		border-radius: 40px;
-		box-shadow: 1px 1px 3px 0px grey;
-	}
-</style>

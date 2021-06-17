@@ -51,7 +51,7 @@
 			"actions": "acciones"
 		}
 	},
-	"Institute": {
+	"Institutes": {
 		"title": "Institute",
 		"create": {
 			"title": "Crear Instituto",
@@ -68,7 +68,10 @@
 				"Academy": "Academy",
 				"image": "imagen",
 				"success": "Institute creado con exito",
-				"error": "el Institute no fue creado"
+				"error": "el Institute no fue creado",
+				"errors": {
+					"name": "el nombre no puede estar vacia"
+				}
 			}
 		},
 		"delete": {

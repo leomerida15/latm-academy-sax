@@ -35,7 +35,7 @@ const routes: Array<RouteConfig> = [
 					Auth: true,
 					rol: 'Admin',
 				},
-				component: () => import('@/templates/admin-Acadmys.vue'),
+				component: () => import('@/templates/admin-Institutes.vue'),
 			},
 			{
 				path: '/admin/academys',
@@ -47,7 +47,7 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Acadmys.vue'),
 			},
 			{
-				path: '/admin/delete',
+				path: '/admin/academys/delete',
 				name: 'delete-Academy',
 				meta: {
 					Auth: true,
@@ -56,7 +56,7 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Acadmys.vue'),
 			},
 			{
-				path: '/admin/edit',
+				path: '/admin/academys/edit',
 				name: 'edit-Academy',
 				meta: {
 					Auth: true,
@@ -65,13 +65,49 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Acadmys.vue'),
 			},
 			{
-				path: '/admin/create',
+				path: '/admin/academys/create',
 				name: 'create-Academy',
 				meta: {
 					Auth: true,
 					rol: 'Admin',
 				},
 				component: () => import('@/templates/admin-Acadmys.vue'),
+			},
+			{
+				path: '/admin/institutes',
+				name: 'Admin-Institutes',
+				meta: {
+					Auth: true,
+					rol: 'Admin',
+				},
+				component: () => import('@/templates/admin-Institutes.vue'),
+			},
+			{
+				path: '/admin/institutes/delete',
+				name: 'delete-Institute',
+				meta: {
+					Auth: true,
+					rol: 'Admin',
+				},
+				component: () => import('@/templates/admin-Institutes.vue'),
+			},
+			{
+				path: '/admin/institutes/edit',
+				name: 'edit-Institute',
+				meta: {
+					Auth: true,
+					rol: 'Admin',
+				},
+				component: () => import('@/templates/admin-Institutes.vue'),
+			},
+			{
+				path: '/admin/institutes/create',
+				name: 'create-Institute',
+				meta: {
+					Auth: true,
+					rol: 'Admin',
+				},
+				component: () => import('@/templates/admin-Institutes.vue'),
 			},
 		],
 	},

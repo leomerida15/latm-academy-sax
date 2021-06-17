@@ -1,6 +1,10 @@
 <template>
-	<div>
+	<section>
 		<!-- <p class="primary-text">{{ info[0] }}</p> -->
+
+		<div class="center">
+			<h2 class="primary-text">{{ $t('academys.title') }}</h2>
+		</div>
 
 		<list-academys :keys="keys" :tdata="tdata" />
 
@@ -10,13 +14,7 @@
 		<delete-academy :active="this.$route.name === 'delete-Academy'" />
 		<!-- editar academia -->
 		<edit-academy :active="this.$route.name === 'edit-Academy'" />
-
-		<div class="btn-flot">
-			<vs-button circle to="/admin/create">
-				<v-icon name="plus"></v-icon>
-			</vs-button>
-		</div>
-	</div>
+	</section>
 </template>
 
 <script lang="ts">
