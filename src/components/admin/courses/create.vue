@@ -1,75 +1,103 @@
 <template>
-	<div class="academys-edit">
+	<div class="academys-create">
 		<vs-dialog @close="exit" :loading="loading" prevent-close :blur="true" width="550px" not-center v-model="active">
 			<template #header>
-				<h4 class="primary-text not-margin">
-					{{ $t('Institutes.edit.title', { name: item.es.name }) }}
-				</h4>
+				<h2 class="primary-text not-margin">
+					{{ $t('Courses.create.title') }}
+				</h2>
 			</template>
 
 			<template>
 				<div class="center">
 					<vs-alert success :progress="progress" v-model="TimeAlertSuccess">
 						<template #title>
-							{{ $t('academys.edit.success') }}
+							{{ $t('Institutes.create.form.success') }}
 						</template>
-						<br />
 					</vs-alert>
 
 					<vs-alert danger :progress="progress" v-model="TimeAlertDanger">
 						<template #title>
-							{{ $t('academys.edit.error') }}
+							{{ $t('Institutes.create.form.error') }}
 						</template>
-						<br />
 					</vs-alert>
-					<br />
 				</div>
 			</template>
 
 			<div class="con-content">
 				<div class="ed-grid m-grid-2">
 					<!-- names -->
-					<vs-input v-model="item.es.name" type="text" :label-placeholder="$t('academys.create.form.es.name')"></vs-input>
-					<vs-input v-model="item.en.name" type="text" :label-placeholder="$t('academys.create.form.en.name')" />
+					<vs-input v-model="body.es.name" type="text" :label-placeholder="$t('academys.create.form.es.name')"></vs-input>
+					<vs-input v-model="body.en.name" type="text" :label-placeholder="$t('academys.create.form.en.name')"></vs-input>
 
 					<!-- descriptions -->
-					<vs-input v-model="item.es.description" type="text" :label-placeholder="$t('academys.create.form.es.description')" />
-					<vs-input v-model="item.en.description" type="text" :label-placeholder="$t('academys.create.form.en.description')" />
+					<vs-input
+						v-model="body.es.description"
+						type="text"
+						:label-placeholder="$t('academys.create.form.es.description')"
+					></vs-input>
+					<vs-input
+						v-model="body.en.description"
+						type="text"
+						:label-placeholder="$t('academys.create.form.en.description')"
+					></vs-input>
 
-					<!-- styles -->
-					<div class="ed-grid s-grid-5">
-						<div class="s-cols-5">
-							<h5 style="margin: 0px">{{ $t('academys.create.form.color') }}</h5>
-						</div>
-						<div class="input-color-form s-cols-1">
-							<input v-model="item.style.color" id="input-color" class="input-color validate" type="color" />
-						</div>
-						<div class="input-field s-cols-4">
-							<vs-input v-model="item.style.color" type="text" />
-						</div>
+					<div class="select">
+						<select placeholder="Select" v-model="body.Institute" :color="success">
+							<option value="" disabled selected>{{ $t('Courses.create.form.Institute') }}</option>
+							<option v-for="(item, i) in Institutes" :key="i" :value="item._id">{{ item.name }}</option>
+						</select>
 					</div>
 
-					<vs-button @click="openFile" flat>
-						{{ $t('academys.create.form.image') }}
-						<input type="file" id="fileElem" @change="previewImage" accept="image/*" />
-					</vs-button>
-					<vs-card type="2">
-						<template #img>
-							<div v-if="files_valid"><img :src="imageData" alt="" /></div>
-							<div v-else><img :src="item.image.secure_url" alt="" /></div>
-						</template>
-					</vs-card>
+					<div class="select">
+						<select placeholder="Select" v-model="body.Institute" :color="success">
+							<option value="" disabled selected>{{ $t('Courses.create.form.playList') }}</option>
+							<option v-for="(item, i) in lists" :key="i" :value="item.id">{{ item.snippet.title }}</option>
+						</select>
+					</div>
+
+					<div class="ed-grid">
+						<!--  -->
+						<vs-button class="conten-form" @click="openFile" flat>
+							{{ $t('academys.create.form.image') }}
+							<input type="file" id="fileElem" @change="previewImage" accept="image/*" />
+						</vs-button>
+
+						<vs-card type="2">
+							<template #img>
+								<img :src="imageData" alt="" />
+							</template>
+						</vs-card>
+					</div>
+					<div class="ed-grid">
+						<!--  -->
+						<vs-button class="conten-form" @click="openFile" flat>
+							{{ $t('academys.create.form.image') }}
+							<input type="file" id="fileElem" @change="previewImage" accept="image/*" />
+						</vs-button>
+
+						<vs-card type="2">
+							<template #img>
+								<img :src="imageData" alt="" />
+							</template>
+						</vs-card>
+					</div>
 				</div>
 			</div>
 
 			<template #footer>
 				<div class="con-footer">
-					<vs-button @click="edit" :active="true">
-						{{ $t('academys.edit.btn') }}
+					<vs-button @click="create" :active="true">
+						{{ $t('academys.create.btn') }}
 					</vs-button>
 				</div>
 			</template>
 		</vs-dialog>
+
+		<div class="btn-flot">
+			<vs-button circle to="/admin/courses/create">
+				<v-icon name="plus"></v-icon>
+			</vs-button>
+		</div>
 	</div>
 </template>
 
@@ -77,56 +105,43 @@
 	// modules
 	import Vue from 'vue';
 	import { mapActions, mapState } from 'vuex';
+	import { AxiosResponse } from 'axios';
 
 	export default Vue.extend({
-		name: 'academys-edit',
+		name: 'Course-create',
 		props: {
 			active: { type: Boolean, required: true },
+			lists: { type: Object, required: true },
+			Institutes: { type: Object, required: true },
 		},
 		mounted() {},
 		data() {
 			return {
+				value: '',
 				loading: false,
-				body: {
-					style: {
-						color: '#ffffff',
-						view: '',
-					},
-					image: {},
-					es: {
-						name: '',
-						description: '',
-					},
-					en: {
-						name: '',
-						description: '',
-					},
-				},
-				valid: {
-					style: {
-						color: { alert: false, msg: '' },
-						view: { alert: false, msg: '' },
-					},
-					image: {},
-					es: {
-						name: { alert: false, msg: '' },
-						description: { alert: false, msg: '' },
-					},
-					en: {
-						name: { alert: false, msg: '' },
-						description: { alert: false, msg: '' },
-					},
-				},
-				files_valid: false,
-				imageData: './img/plus.png',
 				TimeAlertSuccess: false,
 				TimeAlertDanger: false,
 				time: 4000,
 				progress: 0,
+				body: {
+					Institute: '',
+					list: '',
+					image: {},
+					es: {
+						name: '',
+						description: '',
+					},
+					en: {
+						name: '',
+						description: '',
+					},
+				},
+				files_valid: false,
+				imageData: './img/plus.png',
 			};
 		},
 		methods: {
-			...mapActions('Academys', ['getAcademys', 'editAcademy']),
+			...mapActions('Institutes', ['getInstitutes', 'createInstitute']),
 			Alert(type: boolean) {
 				if (type) {
 					this.TimeAlertSuccess = true;
@@ -154,31 +169,37 @@
 					}, this.time);
 				}
 			},
-			exit() {
-				this.$router.go(-1);
-			},
-			async edit() {
+			async create() {
+				this.loading = true;
 				try {
-					let j: number = 0;
-					this.loading = true;
-
 					// define vars
-					if (this.files_valid === true) {
-						const { image }: any = this.item;
-						const body = new FormData();
-						body.append('image', image);
+					const { image }: any = this.body;
+					const body = new FormData();
+					body.append('image', image);
 
-						const img = await Vue.axios.post('/api/log/file/img/Academys', body);
-
-						this.item.image = img.data.info;
-					}
-
-					const resp: boolean = await this.editAcademy(this.item);
+					const img: AxiosResponse = await Vue.axios.post('/api/log/file/img/Academys', body);
+					this.body.image = img.data.info;
+					//
+					const resp: boolean = await this.createInstitute(this.body);
 					this.Alert(resp);
 					if (!resp) throw '';
 
-					await this.getAcademys();
+					await this.getInstitutes();
 
+					this.body = {
+						Institute: '',
+						list: '',
+						image: {},
+						es: {
+							name: '',
+							description: '',
+						},
+						en: {
+							name: '',
+							description: '',
+						},
+					};
+					this.imageData = '';
 					this.files_valid = false;
 				} catch (err) {
 					console.error(err);
@@ -194,7 +215,7 @@
 			},
 			previewImage(event: any) {
 				const input = event.target;
-				this.item.image = event.target.files[0];
+				this.body.image = event.target.files[0];
 				this.files_valid = true;
 				if (input.files && input.files[0]) {
 					const reader = new FileReader();
@@ -204,9 +225,19 @@
 					reader.readAsDataURL(input.files[0]);
 				}
 			},
+			exit() {
+				this.$router.push({ name: 'Admin-Course' });
+			},
 		},
 		computed: {
-			...mapState('Academys', ['item']),
+			IsSelect() {
+				// return this.Academys.map((a: any) => {
+				// 	const { _id } = a;
+				// 	const lang: any = localStorage.getItem('lang');
+				// 	const e = a[lang];
+				// 	return { _id, ...e };
+				// });
+			},
 		},
 	});
 </script>

@@ -36,9 +36,10 @@ const courses: Module<state, any> = {
 				return false;
 			}
 		},
-		async ediInstitute({ commit, state }, body: any) {
+		async editInstitute({ commit, state }, body: any) {
 			try {
 				const { _id } = body;
+				debugger;
 				await Vue.axios.patch('/admin/institute/' + _id, body);
 				return true;
 			} catch (err) {
@@ -67,7 +68,7 @@ const courses: Module<state, any> = {
 				commit('define_institute', id);
 
 				return true;
-			} catch (err) {
+			} catch (err) { 
 				console.error(err);
 				return false;
 			}

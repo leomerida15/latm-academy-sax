@@ -1,7 +1,5 @@
 <template>
 	<section class="admin-institutes">
-		<!-- <h1 class="primary-tetxt">{{ info.length }}</h1> -->
-
 		<div class="center">
 			<h2 class="primary-text">{{ $t('Institutes.title') }}</h2>
 		</div>
@@ -11,7 +9,9 @@
 		<!-- create -->
 		<create-institute :active="this.$route.name === 'create-Institute'" :Academys="Academys" />
 		<!-- delete -->
-		<delete-institutes :active="this.$route.name === 'delete-Institute'" />
+		<delete-institute :active="this.$route.name === 'delete-Institute'" />
+		<!-- edit -->
+		<edit-institute :active="this.$route.name === 'edit-Institute'" :Academys="Academys" />
 	</section>
 </template>
 
@@ -22,19 +22,20 @@
 	// components
 	import createInstitute from '@/components/admin/Institutes/create.vue';
 	import listInstitutes from '@/components/admin/Institutes/list.vue';
-	import deleteInstitutes from '@/components/admin/Institutes/delete.vue';
-	import editAcademy from '@/components/admin/Academys/edit.vue';
+	import deleteInstitute from '@/components/admin/Institutes/delete.vue';
+	import editInstitute from '@/components/admin/Institutes/edit.vue';
 
 	export default Vue.extend({
 		name: 'admin-institutes',
 		props: [],
-		components: { createInstitute, listInstitutes, deleteInstitutes },
+		components: { createInstitute, listInstitutes, deleteInstitute, editInstitute },
 		async mounted() {
 			this.selectAcademys();
 			this.getInstitutes();
 		},
 		data() {
 			return {
+				active: false,
 				keys: [
 					'Institutes.table.name',
 					'Institutes.table.description',

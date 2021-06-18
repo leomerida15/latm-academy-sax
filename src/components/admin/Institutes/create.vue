@@ -13,7 +13,7 @@
 						<template #title>
 							{{ $t('Institutes.create.form.success') }}
 						</template>
-					</vs-alert>
+					</vs-alert> 
 
 					<vs-alert danger :progress="progress" v-model="TimeAlertDanger">
 						<template #title>

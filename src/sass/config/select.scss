@@ -21,16 +21,13 @@ select {
 	width: calc(100%);
 }
 
-select:focus {
+select:hover {
 	border-radius: 12px 12px 0px 0px;
 	background: rgba(var(--vs-background), 1);
 
 	color: #a4adb5;
 }
 
-select:hover {
-	background: rgba(var(--vs-background), 1);
-}
 option {
 	color: #a4adb5;
 }

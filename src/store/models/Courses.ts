@@ -5,8 +5,10 @@ import { Module } from 'vuex';
 interface state {
 	info: any[];
 	lang: any;
+	lists: any;
 	N: number;
 	item: any;
+	Institutes: any[];
 }
 
 const courses: Module<state, any> = {
@@ -14,14 +16,17 @@ const courses: Module<state, any> = {
 	state: {
 		info: [],
 		lang: localStorage.getItem('lang'),
+		lists: {},
 		N: 0,
 		item: {},
+		Institutes: [],
 	},
 	mutations: {
 		define_info: (state: any, resp: AxiosResponse) => (state.info = resp.data.info),
+		define_lists: (state: any, data: any) => (state.lists = data),
 		edit_data: (state: any, data: any) => (state.data = data),
 		define_item: (state: state, i: number) => (state.item = state.info[i]),
-		define_Academy: (state: state, id: string) => (state.info = state.info.filter((item: any) => item._id != id)),
+		define_Institutes: (state: state, data: any) => (state.Institutes = data),
 	},
 	actions: {
 		async createInstitute({ commit, state }, body: any) {
@@ -43,12 +48,27 @@ const courses: Module<state, any> = {
 				return false;
 			}
 		},
-		async getInstitutes({ commit }: any) {
+		async getCourses({ commit }: any) {
 			try {
 				// define Token  in the headres
-				const resp: AxiosResponse = await Vue.axios.get('/admin/institute');
+				const resp: AxiosResponse = await Vue.axios.get('/admin/course');
 
 				commit('define_info', resp);
+
+				return true;
+			} catch (err) {
+				console.error(err);
+				return false;
+			}
+		},
+		async getLists({ commit }: any) {
+			try {
+				// define Token  in the headres
+				const resp: AxiosResponse = await Vue.axios.get('/api/log/list');
+
+				const { items }: any = resp.data.info;
+
+				commit('define_lists', items);
 
 				return true;
 			} catch (err) {
@@ -62,6 +82,27 @@ const courses: Module<state, any> = {
 				const resp: AxiosResponse = await Vue.axios.delete('/admin/institute/' + id);
 				// commit
 				commit('define_institute', id);
+
+				return true;
+			} catch (err) {
+				console.error(err);
+				return false;
+			}
+		},
+		async selectInstitutes({ commit }) {
+			try {
+				// define Token  in the headres
+				const resp: AxiosResponse = await Vue.axios.get('/admin/academy');
+
+				const data: any[] = resp.data.info.map((a: any) => {
+					const { _id } = a;
+					const lang: any = localStorage.getItem('lang') && 'es';
+					const e = a[lang];
+
+					return { _id, ...e };
+				});
+
+				commit('define_Institutes', data);
 
 				return true;
 			} catch (err) {

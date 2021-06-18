@@ -52,7 +52,7 @@
 		}
 	},
 	"Institutes": {
-		"title": "Institute",
+		"title": "Institutes",
 		"create": {
 			"title": "Crear Instituto",
 			"btn": "crear",
@@ -67,6 +67,50 @@
 				},
 				"Academy": "Academy",
 				"image": "imagen",
+				"success": "Institute creado con exito",
+				"error": "el Institute no fue creado",
+				"errors": {
+					"name": "el nombre no puede estar vacia"
+				}
+			}
+		},
+		"delete": {
+			"title": "Eliminar el Institute {name}?",
+			"success": "Institute eliminado",
+			"error": "el Institute no fue eliminado"
+		},
+		"edit": {
+			"title": "Editar el Institute {name}?",
+			"success": "Institute editado",
+			"error": "el Institute no fue editado"
+		},
+		"table": {
+			"name": "nombre",
+			"description": "descriccion",
+			"public": "publico/privado",
+			"free": "gratis",
+			"Academy": "Academy",
+			"image": "imagen",
+			"actions": "acciones"
+		}
+	},
+	"Courses": {
+		"title": "Courses",
+		"create": {
+			"title": "Crear Courses",
+			"btn": "crear",
+			"form": {
+				"es": {
+					"name": "nombre en español",
+					"description": "descriccion en español"
+				},
+				"en": {
+					"name": "nombre en ingles",
+					"description": "descriccion en ingles"
+				},
+				"Institute": "Institute",
+				"image": "imagen",
+				"playList": "play List",
 				"success": "Institute creado con exito",
 				"error": "el Institute no fue creado",
 				"errors": {

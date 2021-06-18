@@ -35,7 +35,7 @@ const routes: Array<RouteConfig> = [
 					Auth: true,
 					rol: 'Admin',
 				},
-				component: () => import('@/templates/admin-Institutes.vue'),
+				component: () => import('@/templates/admin-Courses.vue'),
 			},
 			{
 				path: '/admin/academys',
@@ -108,6 +108,42 @@ const routes: Array<RouteConfig> = [
 					rol: 'Admin',
 				},
 				component: () => import('@/templates/admin-Institutes.vue'),
+			},
+			{
+				path: '/admin/courses',
+				name: 'Admin-Courses',
+				meta: {
+					Auth: true,
+					rol: 'Admin',
+				},
+				component: () => import('@/templates/admin-Courses.vue'),
+			},
+			{
+				path: '/admin/courses/delete',
+				name: 'delete-Courses',
+				meta: {
+					Auth: true,
+					rol: 'Admin',
+				},
+				component: () => import('@/templates/admin-Courses.vue'),
+			},
+			{
+				path: '/admin/courses/edit',
+				name: 'edit-Courses',
+				meta: {
+					Auth: true,
+					rol: 'Admin',
+				},
+				component: () => import('@/templates/admin-Courses.vue'),
+			},
+			{
+				path: '/admin/courses/create',
+				name: 'create-Course',
+				meta: {
+					Auth: true,
+					rol: 'Admin',
+				},
+				component: () => import('@/templates/admin-Courses.vue'),
 			},
 		],
 	},

@@ -10,10 +10,10 @@
 			</template>
 			<template #tbody>
 				<vs-tr :key="i" v-for="(dato, i) in $vs.getPage(tdata, page, max)" :data="dato">
-					<vs-td eidt @click="(edit = dato), (editProp = 'name'), (editActive = true)">
+					<vs-td>
 						{{ dato.name }}
 					</vs-td>
-					<vs-td eidt @click="(edit = dato), (editProp = 'description'), (editActive = true)">
+					<vs-td>
 						{{ dato.description }}
 					</vs-td>
 					<vs-td>
@@ -48,12 +48,6 @@
 				<vs-pagination v-model="page" :length="$vs.getLength(tdata, max)" />
 			</template>
 		</vs-table>
-
-		<vs-dialog v-model="editActive">
-			<template #header>Change Prop {{ editProp }}</template>
-			<vs-input @keypress.enter="editActive = false" v-if="editProp == 'name'" v-model="edit[editProp]" />
-			<vs-input @keypress.enter="editActive = false" v-if="editProp == 'description'" v-model="edit[editProp]" />
-		</vs-dialog>
 
 		<!-- image -->
 		<vs-dialog not-center v-model="img">

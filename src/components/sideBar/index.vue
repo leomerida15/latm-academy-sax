@@ -24,6 +24,12 @@
 				</template>
 				Institutes
 			</vs-sidebar-item>
+			<vs-sidebar-item to="/admin/courses" id="Courses">
+				<template #icon>
+					<v-icon name="rocket"></v-icon>
+				</template>
+				Courses
+			</vs-sidebar-item>
 
 			<template #footer>
 				<vs-row justify="space-between">
