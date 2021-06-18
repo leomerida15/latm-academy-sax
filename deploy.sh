@@ -12,3 +12,9 @@ cd ../latam-Academy-Back
 rm -r public
 #
 mv dist public
+#
+git add .
+#
+git commit -m "deploy"
+#
+git push
