@@ -6,6 +6,24 @@
 				<b class="">!</b>
 			</h1>
 		</template>
+
+		<template>
+			<div class="center">
+				<vs-alert success :progress="progress" v-model="TimeAlertSuccess">
+					<template #title>
+						{{ $t('login.success') }}
+					</template>
+				</vs-alert>
+
+				<vs-alert danger :progress="progress" v-model="TimeAlertDanger">
+					<template #title>
+						{{ $t('login.wrong.title') }}
+					</template>
+				</vs-alert>
+				<br />
+			</div>
+		</template>
+
 		<div class="con-form">
 			<vs-input success type="email" v-model="body.email" :placeholder="$t('sign_up.email.label')">
 				<template #icon #message-success>
@@ -68,6 +86,10 @@
 		mounted() {},
 		data() {
 			return {
+				TimeAlertSuccess: false,
+				TimeAlertDanger: false,
+				time: 4000,
+				progress: 0,
 				body: { email: '', password: '' },
 				valid: {
 					email: { alert: false, msg: '' },
@@ -77,6 +99,35 @@
 			};
 		},
 		methods: {
+			Alert(type: boolean) {
+				const rol: any = localStorage.getItem('rol');
+				if (type) {
+					this.TimeAlertSuccess = true;
+
+					const interval = setInterval(() => {
+						this.progress++;
+					}, this.time / 100);
+
+					setTimeout(() => {
+						this.TimeAlertSuccess = false;
+						clearInterval(interval);
+						this.progress = 0;
+						this.$router.push({ name: rol });
+					}, this.time);
+				} else {
+					this.TimeAlertDanger = true;
+
+					const interval = setInterval(() => {
+						this.progress++;
+					}, this.time / 100);
+
+					setTimeout(() => {
+						this.TimeAlertDanger = false;
+						clearInterval(interval);
+						this.progress = 0;
+					}, this.time);
+				}
+			},
 			back() {
 				this.$router.push({ name: 'Home' });
 			},
@@ -108,8 +159,9 @@
 					localStorage.setItem('token', resp.data.info.token);
 					localStorage.setItem('rol', resp.data.info.rol);
 
-					this.$router.push({ name: resp.data.info.rol });
+					this.Alert(true);
 				} catch (err) {
+					this.Alert(false);
 					console.clear();
 					console.log('err');
 					console.log(err);
