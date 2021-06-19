@@ -57,9 +57,9 @@
 
 					<div class="ed-grid">
 						<!--  -->
-						<vs-button class="conten-form" @click="openFile" flat>
+						<vs-button class="conten-form" @click="openFile('fileElem')" flat>
 							{{ $t('academys.create.form.image') }}
-							<input type="file" id="fileElem" @change="previewImage" accept="image/*" />
+							<input type="file" id="fileElem" @change="previewImage" accept="image/*" multiple />
 						</vs-button>
 
 						<vs-card type="2">
@@ -70,16 +70,38 @@
 					</div>
 					<div class="ed-grid">
 						<!--  -->
-						<vs-button class="conten-form" @click="openFile" flat>
-							{{ $t('academys.create.form.image') }}
-							<input type="file" id="fileElem" @change="previewImage" accept="image/*" />
+						<vs-button class="conten-form" @click="openFile('filesElem')" flat>
+							recursos
+							<input type="file" id="filesElem" @change="change_recourses" accept="image/*,.pdf,.xlsx,." multiple />
 						</vs-button>
 
-						<vs-card type="2">
-							<template #img>
-								<img :src="imageData" alt="" />
+						<vs-table>
+							<template #thead>
+								<vs-tr>
+									<vs-th>
+										resources
+									</vs-th>
+								</vs-tr>
 							</template>
-						</vs-card>
+							<template #tbody>
+								<vs-tr v-for="(resource, i) in body.resources" :key="i" :data="resources">
+									<vs-td edit @click="(j = i), (editProp = 'name'), (editActive = true)">
+										{{ resource.name }}
+									</vs-td>
+								</vs-tr>
+							</template>
+						</vs-table>
+
+						<vs-dialog v-model="editActive">
+							<template #header><h2 class="primary-text">Eliminar recurso</h2></template>
+
+							<div class="ed-grid s-grid-2">
+								<vs-button transparent @click="deleteRecourse">{{ $t('yes') }}</vs-button>
+								<vs-button border @click="editActive = false">
+									{{ $t('no') }}
+								</vs-button>
+							</div>
+						</vs-dialog>
 					</div>
 				</div>
 			</div>
@@ -123,10 +145,14 @@
 				TimeAlertDanger: false,
 				time: 4000,
 				progress: 0,
+				editActive: false,
+				j: 0,
+				editProp: {},
 				body: {
 					Institute: '',
 					list: '',
 					image: {},
+					resources: [],
 					es: {
 						name: '',
 						description: '',
@@ -142,6 +168,10 @@
 		},
 		methods: {
 			...mapActions('Institutes', ['getInstitutes', 'createInstitute']),
+			deleteRecourse() {
+				this.body.resources.splice(this.j, 1);
+				this.editActive = false;
+			},
 			Alert(type: boolean) {
 				if (type) {
 					this.TimeAlertSuccess = true;
@@ -190,6 +220,7 @@
 						Institute: '',
 						list: '',
 						image: {},
+						resources: [],
 						es: {
 							name: '',
 							description: '',
@@ -206,8 +237,8 @@
 				}
 				this.loading = false;
 			},
-			openFile() {
-				const el = document.getElementById('fileElem');
+			openFile(id: string) {
+				const el = document.getElementById(`${id}`);
 
 				if (el) {
 					el.click();
@@ -223,6 +254,18 @@
 					reader.onload = (e: any) => (this.imageData = e.target.result);
 
 					reader.readAsDataURL(input.files[0]);
+				}
+			},
+			change_recourses(event: any) {
+				const input: any = event.target.files;
+				console.log(event.target.files);
+				for (const key in input) {
+					console.log(key);
+					if (key != 'length' && key != 'item') {
+						// @ts-ignore
+						const e: never = event.target.files[key];
+						this.body.resources.push(e);
+					}
 				}
 			},
 			exit() {
@@ -243,7 +286,8 @@
 </script>
 
 <style lang="scss">
-	#fileElem {
+	#fileElem,
+	#filesElem {
 		display: none;
 	}
 	.con-footer {

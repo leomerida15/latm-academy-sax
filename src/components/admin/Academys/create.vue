@@ -2,9 +2,9 @@
 	<div class="academys-create">
 		<vs-dialog @close="exit" :loading="loading" prevent-close :blur="true" width="550px" not-center v-model="active">
 			<template #header>
-				<h3 class="primary-text not-margin">
+				<h2 class="primary-text not-margin">
 					{{ $t('academys.create.title') }}
-				</h3>
+				</h2>
 			</template>
 
 			<template>
