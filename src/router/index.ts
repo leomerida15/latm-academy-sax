@@ -30,7 +30,7 @@ const routes: Array<RouteConfig> = [
 		children: [
 			{
 				path: '/front/admin/',
-				name: 'adminBase',
+				name: 'Admin',
 				meta: {
 					Auth: true,
 					rol: 'Admin',
