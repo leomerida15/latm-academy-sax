@@ -12,19 +12,19 @@
 				</template>
 				Home
 			</vs-sidebar-item>
-			<vs-sidebar-item to="/admin/academys" id="Academys">
+			<vs-sidebar-item to="/front/admin/academys" id="Academys">
 				<template #icon>
 					<v-icon name="rocket"></v-icon>
 				</template>
 				Academys
 			</vs-sidebar-item>
-			<vs-sidebar-item to="/admin/institutes" id="Institutes">
+			<vs-sidebar-item to="/front/admin/institutes" id="Institutes">
 				<template #icon>
 					<v-icon name="rocket"></v-icon>
 				</template>
 				Institutes
 			</vs-sidebar-item>
-			<vs-sidebar-item to="/admin/courses" id="Courses">
+			<vs-sidebar-item to="/front/admin/courses" id="Courses">
 				<template #icon>
 					<v-icon name="rocket"></v-icon>
 				</template>
