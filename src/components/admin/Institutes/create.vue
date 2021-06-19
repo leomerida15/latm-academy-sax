@@ -13,7 +13,7 @@
 						<template #title>
 							{{ $t('Institutes.create.form.success') }}
 						</template>
-					</vs-alert> 
+					</vs-alert>
 
 					<vs-alert danger :progress="progress" v-model="TimeAlertDanger">
 						<template #title>
@@ -72,7 +72,7 @@
 		</vs-dialog>
 
 		<div class="btn-flot">
-			<vs-button circle to="/admin/institutes/create">
+			<vs-button circle to="/institutes/create">
 				<v-icon name="plus"></v-icon>
 			</vs-button>
 		</div>
