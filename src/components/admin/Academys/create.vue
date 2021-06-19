@@ -74,7 +74,7 @@
 		</vs-dialog>
 
 		<div class="btn-flot">
-			<vs-button circle to="/academys/create">
+			<vs-button circle to="/front/academys/create">
 				<v-icon name="plus"></v-icon>
 			</vs-button>
 		</div>
