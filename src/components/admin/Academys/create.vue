@@ -2,18 +2,22 @@
 	<div class="academys-create">
 		<vs-dialog @close="exit" :loading="loading" prevent-close :blur="true" width="550px" not-center v-model="active">
 			<template #header>
-				<h4 class="primary-text not-margin">
+				<h3 class="primary-text not-margin">
 					{{ $t('academys.create.title') }}
-				</h4>
+				</h3>
 			</template>
 
 			<template>
 				<div class="center">
-					<vs-alert success :progress="progress" v-model="TimeAlertSuccess"></vs-alert>
+					<vs-alert success :progress="progress" v-model="TimeAlertSuccess">
+						<template #title>
+							{{ $t('academys.create.form.success') }}
+						</template>
+					</vs-alert>
 
 					<vs-alert danger :progress="progress" v-model="TimeAlertDanger">
 						<template #title>
-							{{ $t('academys.create.form.danger') }}
+							{{ $t('academys.create.form.error') }}
 						</template>
 					</vs-alert>
 				</div>
