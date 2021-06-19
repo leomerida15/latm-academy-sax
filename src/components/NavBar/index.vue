@@ -47,10 +47,10 @@
 			</vs-navbar-item>
 
 			<template #right>
-				<vs-button :to="'/auth/login'" border :textWhite="false" :active="resal" @click="OpenLogin" flat>
+				<vs-button :to="'/front/auth/login'" border :textWhite="false" :active="resal" @click="OpenLogin" flat>
 					{{ $t('login.login') }}
 				</vs-button>
-				<vs-button :to="'/auth/register'" border :active="!resal" @click="RegisterLogin">
+				<vs-button :to="'/front/auth/register'" border :active="!resal" @click="RegisterLogin">
 					{{ $t('sign_up.title') }}
 				</vs-button>
 			</template>
