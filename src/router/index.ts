@@ -25,11 +25,11 @@ const routes: Array<RouteConfig> = [
 			Auth: true,
 			rol: 'Admin',
 		},
-		redirect: '/admin/',
+		redirect: '/',
 		component: Admin,
 		children: [
 			{
-				path: '/front/admin/',
+				path: '/front/',
 				name: 'Admin',
 				meta: {
 					Auth: true,
@@ -38,7 +38,7 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Courses.vue'),
 			},
 			{
-				path: '/front/admin/academys',
+				path: '/front/academys',
 				name: 'Admin-Academys',
 				meta: {
 					Auth: true,
@@ -47,7 +47,7 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Acadmys.vue'),
 			},
 			{
-				path: '/front/admin/academys/delete',
+				path: '/front/academys/delete',
 				name: 'delete-Academy',
 				meta: {
 					Auth: true,
@@ -56,7 +56,7 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Acadmys.vue'),
 			},
 			{
-				path: '/front/admin/academys/edit',
+				path: '/front/academys/edit',
 				name: 'edit-Academy',
 				meta: {
 					Auth: true,
@@ -65,7 +65,7 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Acadmys.vue'),
 			},
 			{
-				path: '/front/admin/academys/create',
+				path: '/front/academys/create',
 				name: 'create-Academy',
 				meta: {
 					Auth: true,
@@ -74,7 +74,7 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Acadmys.vue'),
 			},
 			{
-				path: '/front/admin/institutes',
+				path: '/front/institutes',
 				name: 'Admin-Institutes',
 				meta: {
 					Auth: true,
@@ -83,7 +83,7 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Institutes.vue'),
 			},
 			{
-				path: '/front/admin/institutes/delete',
+				path: '/front/institutes/delete',
 				name: 'delete-Institute',
 				meta: {
 					Auth: true,
@@ -92,7 +92,7 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Institutes.vue'),
 			},
 			{
-				path: '/front/admin/institutes/edit',
+				path: '/front/institutes/edit',
 				name: 'edit-Institute',
 				meta: {
 					Auth: true,
@@ -101,7 +101,7 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Institutes.vue'),
 			},
 			{
-				path: '/front/admin/institutes/create',
+				path: '/front/institutes/create',
 				name: 'create-Institute',
 				meta: {
 					Auth: true,
@@ -110,7 +110,7 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Institutes.vue'),
 			},
 			{
-				path: '/front/admin/courses',
+				path: '/front/courses',
 				name: 'Admin-Courses',
 				meta: {
 					Auth: true,
@@ -119,7 +119,7 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Courses.vue'),
 			},
 			{
-				path: '/front/admin/courses/delete',
+				path: '/front/courses/delete',
 				name: 'delete-Courses',
 				meta: {
 					Auth: true,
@@ -128,7 +128,7 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Courses.vue'),
 			},
 			{
-				path: '/front/admin/courses/edit',
+				path: '/front/courses/edit',
 				name: 'edit-Courses',
 				meta: {
 					Auth: true,
@@ -137,7 +137,7 @@ const routes: Array<RouteConfig> = [
 				component: () => import('@/templates/admin-Courses.vue'),
 			},
 			{
-				path: '/front/admin/courses/create',
+				path: '/front/courses/create',
 				name: 'create-Course',
 				meta: {
 					Auth: true,
