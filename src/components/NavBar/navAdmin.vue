@@ -36,17 +36,14 @@
 	// modules
 	import Vue from 'vue';
 	// componets
-	import theme from '@/components/theme.vue';
 	import login from '@/components/auth/login.vue';
 	import register from '@/components/auth/register.vue';
 
 	export default Vue.extend({
 		name: 'nav-bar-admin',
 		props: [],
-		components: { theme, login, register },
-		mounted() {
-			console.log(this.$route);
-		},
+		components: { login, register },
+		mounted() {},
 		data() {
 			return {
 				active: 'primary',

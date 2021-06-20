@@ -68,7 +68,7 @@ const courses: Module<state, any> = {
 				commit('define_institute', id);
 
 				return true;
-			} catch (err) { 
+			} catch (err) {
 				console.error(err);
 				return false;
 			}

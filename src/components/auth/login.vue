@@ -68,7 +68,7 @@
 
 				<div class="new">
 					{{ $t('login.not_account') }}
-					<router-link :to="'/auth/register'">{{ $t('login.sign_up') }}</router-link>
+					<router-link :to="'/front/auth/register'">{{ $t('login.sign_up') }}</router-link>
 				</div>
 			</div>
 		</template>
@@ -163,8 +163,7 @@
 				} catch (err) {
 					this.Alert(false);
 					console.clear();
-					console.log('err');
-					console.log(err);
+					console.error(err);
 				}
 				this.loading = false;
 			},

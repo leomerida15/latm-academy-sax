@@ -110,12 +110,10 @@
 				},
 				"Institute": "Institute",
 				"image": "imagen",
-				"playList": "play List",
-				"success": "Institute creado con exito",
-				"error": "el Institute no fue creado",
-				"errors": {
-					"name": "el nombre no puede estar vacia"
-				}
+				"playlistid": "play List",
+				"resources": "resources",
+				"success": "Courses creado con exito",
+				"error": "el Courses no fue creado"
 			}
 		},
 		"delete": {
@@ -134,6 +132,8 @@
 			"public": "publico/privado",
 			"free": "gratis",
 			"Academy": "Academy",
+			"playlistid": "play List",
+			"resources": "resources",
 			"image": "imagen",
 			"actions": "acciones"
 		}

@@ -29,16 +29,16 @@ const courses: Module<state, any> = {
 		define_Institutes: (state: state, data: any) => (state.Institutes = data),
 	},
 	actions: {
-		async createInstitute({ commit, state }, body: any) {
+		async createCourse({ commit, state }, body: any) {
 			try {
-				await Vue.axios.post('/admin/institute', body);
+				await Vue.axios.post('/admin/course', body);
 				return true;
 			} catch (err) {
 				console.error(err);
 				return false;
 			}
 		},
-		async ediInstitute({ commit, state }, body: any) {
+		async editCourse({ commit, state }, body: any) {
 			try {
 				const { _id } = body;
 				await Vue.axios.patch('/admin/institute/' + _id, body);
@@ -79,9 +79,19 @@ const courses: Module<state, any> = {
 		async deleteInstitute({ commit }, id: string) {
 			try {
 				// response
-				const resp: AxiosResponse = await Vue.axios.delete('/admin/institute/' + id);
-				// commit
-				commit('define_institute', id);
+				await Vue.axios.delete('/admin/course/' + id);
+
+				return true;
+			} catch (err) {
+				console.error(err);
+				return false;
+			}
+		},
+		async deleteResourse({ commit }, id: string) {
+			try {
+				const base: string = id.split('/')[1];
+				// response
+				await Vue.axios.delete('/api/log/file/' + base);
 
 				return true;
 			} catch (err) {
@@ -92,7 +102,7 @@ const courses: Module<state, any> = {
 		async selectInstitutes({ commit }) {
 			try {
 				// define Token  in the headres
-				const resp: AxiosResponse = await Vue.axios.get('/admin/academy');
+				const resp: AxiosResponse = await Vue.axios.get('/admin/institute');
 
 				const data: any[] = resp.data.info.map((a: any) => {
 					const { _id } = a;

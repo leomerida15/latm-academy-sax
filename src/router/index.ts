@@ -145,6 +145,15 @@ const routes: Array<RouteConfig> = [
 				},
 				component: () => import('@/templates/admin-Courses.vue'),
 			},
+			{
+				path: '/front/courses/recourses',
+				name: 'recourses-Course',
+				meta: {
+					Auth: true,
+					rol: 'Admin',
+				},
+				component: () => import('@/templates/admin-Courses.vue'),
+			},
 		],
 	},
 	{

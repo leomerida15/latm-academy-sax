@@ -1,16 +1,16 @@
 <template lang="html">
 	<section class="admin-curses">
-		<h1>admin-curses Component</h1>
+		<div class="center">
+			<h2 class="primary-text">{{ $t('Courses.title') }}</h2>
+		</div>
 
-		<!-- <iframe
-			width="640"
-			height="360"
-			src="http://www.youtube.com/embed/videoseries?list=PL59he8QLJAga4aUBraDQ9fk18MKdy16aD"
-			frameborder="0"
-			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-			allowfullscreen
-		></iframe> -->
+		<!-- list -->
+		<list-courses :tdata="tdata" :keys="keys" />
 
+		<!-- listRecourses -->
+		<list-recourses :tbody="item" :active="this.$route.name === 'recourses-Course'" />
+
+		<!-- create -->
 		<create-courses :active="this.$route.name === 'create-Course'" :lists="lists" :Institutes="Institutes" />
 	</section>
 </template>
@@ -21,25 +21,55 @@
 	import { mapActions, mapState } from 'vuex';
 
 	// componens
+	import listCourses from '@/components/admin/courses/list.vue';
+	import listRecourses from '@/components/admin/courses/recourses.vue';
 	import createCourses from '@/components/admin/courses/create.vue';
 
 	export default Vue.extend({
 		name: 'admin-curses',
 		props: [],
-		components: { createCourses },
+		components: { createCourses, listCourses, listRecourses },
 		async mounted() {
 			await this.getCourses();
 			await this.getLists();
 			await this.selectInstitutes();
 		},
 		data() {
-			return {};
+			return {
+				keys: [
+					'Courses.table.name',
+					'Courses.table.description',
+					'Courses.table.playlistid',
+					'Courses.table.image',
+					'Courses.table.resources',
+					'Courses.table.actions',
+					'_id',
+				],
+			};
 		},
 		methods: {
 			...mapActions('Courses', ['getCourses', 'getLists', 'selectInstitutes']),
 		},
 		computed: {
-			...mapState('Courses', ['info', 'lists', 'Institutes']),
+			...mapState('Courses', ['info', 'lists', 'Institutes', 'item']),
+			tdata() {
+				const data: any[] = this.info.map((a: any) => {
+					const { name, description } = a[localStorage.getItem('lang') ?? 'es'];
+					const { secure_url } = a.image;
+					const { _id, playlistid, resources } = a;
+
+					return {
+						_id,
+						name,
+						description,
+						image: secure_url,
+						playlistid,
+						resources,
+					};
+				});
+
+				return data;
+			},
 		},
 	});
 </script>

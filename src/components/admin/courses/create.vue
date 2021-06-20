@@ -11,13 +11,13 @@
 				<div class="center">
 					<vs-alert success :progress="progress" v-model="TimeAlertSuccess">
 						<template #title>
-							{{ $t('Institutes.create.form.success') }}
+							{{ $t('Courses.create.form.success') }}
 						</template>
 					</vs-alert>
 
 					<vs-alert danger :progress="progress" v-model="TimeAlertDanger">
 						<template #title>
-							{{ $t('Institutes.create.form.error') }}
+							{{ $t('Courses.create.form.error') }}
 						</template>
 					</vs-alert>
 				</div>
@@ -49,7 +49,7 @@
 					</div>
 
 					<div class="select">
-						<select placeholder="Select" v-model="body.Institute" :color="success">
+						<select placeholder="Select" v-model="body.playlistid" :color="success">
 							<option value="" disabled selected>{{ $t('Courses.create.form.playList') }}</option>
 							<option v-for="(item, i) in lists" :key="i" :value="item.id">{{ item.snippet.title }}</option>
 						</select>
@@ -85,7 +85,7 @@
 							</template>
 							<template #tbody>
 								<vs-tr v-for="(resource, i) in body.resources" :key="i" :data="resources">
-									<vs-td edit @click="(j = i), (editProp = 'name'), (editActive = true)">
+									<vs-td>
 										{{ resource.name }}
 									</vs-td>
 								</vs-tr>
@@ -126,7 +126,7 @@
 <script lang="ts">
 	// modules
 	import Vue from 'vue';
-	import { mapActions, mapState } from 'vuex';
+	import { mapActions } from 'vuex';
 	import { AxiosResponse } from 'axios';
 
 	export default Vue.extend({
@@ -151,6 +151,7 @@
 				body: {
 					Institute: '',
 					list: '',
+					playlistid: '',
 					image: {},
 					resources: [],
 					es: {
@@ -167,7 +168,7 @@
 			};
 		},
 		methods: {
-			...mapActions('Institutes', ['getInstitutes', 'createInstitute']),
+			...mapActions('Courses', ['getCourses', 'createCourse']),
 			deleteRecourse() {
 				this.body.resources.splice(this.j, 1);
 				this.editActive = false;
@@ -203,22 +204,40 @@
 				this.loading = true;
 				try {
 					// define vars
-					const { image }: any = this.body;
+					const { image, resources }: any = this.body;
 					const body = new FormData();
 					body.append('image', image);
 
-					const img: AxiosResponse = await Vue.axios.post('/api/log/file/img/Academys', body);
+					const img: AxiosResponse = await Vue.axios.post('/api/log/file/img/Courses', body);
 					this.body.image = img.data.info;
+
+					let j: number = 0;
+					const item: never[] = resources.map(async (resource: never) => {
+						const body = new FormData();
+						body.append('image', resource);
+
+						const imgs: AxiosResponse<{ status: boolean; message: string; info: never }> = await Vue.axios.post(
+							'/api/log/file/img/Courses',
+							body
+						);
+
+						return imgs.data.info;
+					});
+					const rec: never[] = await Promise.all(item);
+
+					this.body.resources = rec;
+
 					//
-					const resp: boolean = await this.createInstitute(this.body);
+					const resp: boolean = await this.createCourse(this.body);
 					this.Alert(resp);
 					if (!resp) throw '';
 
-					await this.getInstitutes();
+					await this.getCourses();
 
 					this.body = {
 						Institute: '',
 						list: '',
+						playlistid: '',
 						image: {},
 						resources: [],
 						es: {
@@ -258,9 +277,8 @@
 			},
 			change_recourses(event: any) {
 				const input: any = event.target.files;
-				console.log(event.target.files);
+
 				for (const key in input) {
-					console.log(key);
 					if (key != 'length' && key != 'item') {
 						// @ts-ignore
 						const e: never = event.target.files[key];
@@ -269,7 +287,7 @@
 				}
 			},
 			exit() {
-				this.$router.push({ name: 'Admin-Course' });
+				this.$router.push({ name: 'Admin-Courses' });
 			},
 		},
 		computed: {
