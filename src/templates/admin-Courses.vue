@@ -14,7 +14,7 @@
 		<create-courses :active="this.$route.name === 'create-Course'" :lists="lists" :Institutes="Institutes" />
 
 		<!-- delete -->
-		<delete-course active="this.$route.name === 'delete-Course'" />
+		<delete-course :active="this.$route.name === 'delete-Course'" />
 	</section>
 </template>
 

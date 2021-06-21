@@ -4,7 +4,7 @@
 		<template #header>
 			<div>
 				<div>
-					<h4 class="not-margin primary-text">{{ $t('academys.delete.title', { name: item.name }) }}</h4>
+					<h4 class="not-margin primary-text">{{ $t('Courses.delete.title', { name: item.name }) }}</h4>
 				</div>
 			</div>
 		</template>
@@ -13,13 +13,13 @@
 			<div class="center">
 				<vs-alert success :progress="progress" v-model="TimeAlertSuccess">
 					<template #title>
-						{{ $t('academys.delete.success') }}
+						{{ $t('Courses.delete.success') }}
 					</template>
 				</vs-alert>
 
 				<vs-alert danger :progress="progress" v-model="TimeAlertDanger">
 					<template #title>
-						{{ $t('academys.delete.danger') }}
+						{{ $t('Courses.delete.error') }}
 					</template>
 				</vs-alert>
 			</div>
@@ -61,7 +61,7 @@
 			};
 		},
 		methods: {
-			...mapActions('Academys', ['deleteAcademy']),
+			...mapActions('Courses', ['deleteCourse', 'getCourses']),
 			Alert(type: boolean) {
 				if (type) {
 					this.TimeAlertSuccess = true;
@@ -74,6 +74,7 @@
 						this.TimeAlertSuccess = false;
 						clearInterval(interval);
 						this.progress = 0;
+						this.exit();
 					}, this.time);
 				} else {
 					this.TimeAlertDanger = true;
@@ -86,6 +87,7 @@
 						this.TimeAlertDanger = false;
 						clearInterval(interval);
 						this.progress = 0;
+						this.exit();
 					}, this.time);
 				}
 			},
@@ -94,13 +96,14 @@
 			},
 			async action() {
 				this.loading = true;
-				const resp: boolean = await this.deleteAcademy(this.item._id);
+				const resp: boolean = await this.deleteCourse(this.item._id);
 				this.loading = false;
 				this.Alert(resp);
-				this.exit();
+				this.getCourses();
+				// this.exit();
 			},
 		},
-		computed: { ...mapState('Academys', ['item']) },
+		computed: { ...mapState('Courses', ['item']) },
 	});
 </script>
 

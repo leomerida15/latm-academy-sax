@@ -76,7 +76,7 @@ const courses: Module<state, any> = {
 				return false;
 			}
 		},
-		async deleteInstitute({ commit }, id: string) {
+		async deleteCourse({ commit }, id: string) {
 			try {
 				// response
 				await Vue.axios.delete('/admin/course/' + id);

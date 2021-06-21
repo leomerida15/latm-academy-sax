@@ -117,9 +117,9 @@
 			}
 		},
 		"delete": {
-			"title": "Eliminar el Institute {name}?",
-			"success": "Institute eliminado",
-			"error": "el Institute no fue eliminado"
+			"title": "Eliminar el Course {name}?",
+			"success": "Course eliminado",
+			"error": "el Course no fue eliminado"
 		},
 		"edit": {
 			"title": "Editar el Institute {name}?",
