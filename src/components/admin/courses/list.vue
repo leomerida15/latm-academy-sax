@@ -110,9 +110,8 @@
 		},
 		methods: {
 			...mapMutations('Courses', ['define_item']),
-			...mapActions('Academys', ['deleteAcademys', 'getAcademys']),
 			deleteAlert(i: number) {
-				this.$router.push({ name: 'delete-Academy' });
+				this.$router.push({ name: 'delete-Course' });
 				this.define_item(i);
 			},
 			editAlert(i: number) {

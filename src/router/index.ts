@@ -120,7 +120,7 @@ const routes: Array<RouteConfig> = [
 			},
 			{
 				path: '/front/courses/delete',
-				name: 'delete-Courses',
+				name: 'delete-Course',
 				meta: {
 					Auth: true,
 					rol: 'Admin',
@@ -129,7 +129,7 @@ const routes: Array<RouteConfig> = [
 			},
 			{
 				path: '/front/courses/edit',
-				name: 'edit-Courses',
+				name: 'edit-Course',
 				meta: {
 					Auth: true,
 					rol: 'Admin',
