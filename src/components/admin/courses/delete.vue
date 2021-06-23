@@ -75,6 +75,8 @@
 						clearInterval(interval);
 						this.progress = 0;
 						this.exit();
+
+						 
 					}, this.time);
 				} else {
 					this.TimeAlertDanger = true;

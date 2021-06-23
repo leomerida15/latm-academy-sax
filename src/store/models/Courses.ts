@@ -41,7 +41,7 @@ const courses: Module<state, any> = {
 		async editCourse({ commit, state }, body: any) {
 			try {
 				const { _id } = body;
-				await Vue.axios.patch('/admin/institute/' + _id, body);
+				await Vue.axios.patch('/admin/course/' + _id, body);
 				return true;
 			} catch (err) {
 				console.error(err);
@@ -87,7 +87,7 @@ const courses: Module<state, any> = {
 				return false;
 			}
 		},
-		async deleteResourse({ commit }, id: string) {
+		async deleteDoc({ commit }, id: string) {
 			try {
 				const base: string = id.split('/')[1];
 				// response

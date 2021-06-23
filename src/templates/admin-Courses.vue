@@ -13,6 +13,9 @@
 		<!-- create -->
 		<create-courses :active="this.$route.name === 'create-Course'" :lists="lists" :Institutes="Institutes" />
 
+		<!-- edit -->
+		<edit-course :active="this.$route.name === 'edit-Course'" :lists="lists" :Institutes="Institutes" />
+
 		<!-- delete -->
 		<delete-course :active="this.$route.name === 'delete-Course'" />
 	</section>
@@ -28,11 +31,12 @@
 	import listRecourses from '@/components/admin/courses/recourses.vue';
 	import createCourses from '@/components/admin/courses/create.vue';
 	import deleteCourse from '@/components/admin/courses/delete.vue';
+	import editCourse from '@/components/admin/courses/edit.vue';
 
 	export default Vue.extend({
 		name: 'admin-curses',
 		props: [],
-		components: { createCourses, listCourses, listRecourses, deleteCourse },
+		components: { createCourses, listCourses, listRecourses, deleteCourse, editCourse },
 		async mounted() {
 			await this.getCourses();
 			await this.getLists();
