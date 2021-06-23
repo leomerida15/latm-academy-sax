@@ -54,7 +54,7 @@
 				<div class="s-x-2 s-cols-4 s-to-center">
 					<template>
 						<div>
-							<vs-button :class="{ pulse: !hover }" gradient :active="active == 0" @click="active = 0" @mouseover="hover = true">
+							<vs-button gradient :active="active == 0" @click="active = 0" @mouseover="hover = true">
 								Inicia gratis tu viaje al éxito 🚀
 							</vs-button>
 							<br />

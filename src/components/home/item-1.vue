@@ -19,7 +19,7 @@
 
 				<template>
 					<div>
-						<vs-button :class="{ pulse: !hover }" gradient :active="active == 0" @click="active = 0" @mouseover="hover = true">
+						<vs-button gradient :active="active == 0" @click="active = 0" @mouseover="hover = true">
 							Inicia gratis tu viaje al éxito 🚀
 						</vs-button>
 					</div>
@@ -49,8 +49,3 @@
 		computed: {},
 	});
 </script>
-
-<style scoped lang="scss">
-	.home-item-1 {
-	}
-</style>
