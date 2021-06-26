@@ -79,6 +79,7 @@
 				<img height="((250/16)*9)px" width="250px" :src="url" :alt="url" />
 			</div>
 		</vs-dialog>
+
 	</div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
 	<!-- delete item -->
-	<vs-dialog :loading="loading" :blur="true" width="300px" not-center @close="exit" v-model="active">
+	<vs-dialog :loading="loading" :blur="true" full-screen not-center @close="exit" v-model="active">
 		<template #header>
 			<div>
 				<div>
@@ -27,11 +27,8 @@
 
 		<template v-if="msg" #footer>
 			<div class="con-footer">
-				<vs-button @click="action" success transparent>
-					{{ $t('yes') }}
-				</vs-button>
 				<vs-button @click="exit" border="true">
-					{{ $t('no') }}
+					{{ $t('exit') }}
 				</vs-button>
 			</div>
 		</template>
@@ -44,7 +41,7 @@
 	import { mapState, mapActions } from 'vuex';
 
 	export default Vue.extend({
-		name: 'courses-delete',
+		name: 'video-delete',
 		props: {
 			active: { type: Boolean, required: true },
 		},
