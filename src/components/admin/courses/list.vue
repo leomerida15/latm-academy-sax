@@ -19,7 +19,7 @@
 					<vs-td>
 						<div class="ed-container">
 							<div>
-								<vs-button icon circle color="success" @click="openImg(dato.name, dato.image)">
+								<vs-button icon circle color="primary" @click="openImg(dato.name, dato.image)">
 									<v-icon name="video"></v-icon>
 								</vs-button>
 							</div>
@@ -28,7 +28,7 @@
 					<vs-td>
 						<div class="ed-container">
 							<div>
-								<vs-button icon circle color="success" @click="openImg(dato.name, dato.image)">
+								<vs-button icon circle color="primary" @click="openImg(dato.name, dato.image)">
 									<v-icon name="image"></v-icon>
 								</vs-button>
 							</div>
@@ -37,7 +37,7 @@
 					<vs-td>
 						<div class="ed-container">
 							<div>
-								<vs-button icon circle color="success" @click="recoursesAlert(i)">
+								<vs-button icon circle color="primary" @click="recoursesAlert(i)">
 									<v-icon name="folder"></v-icon>
 								</vs-button>
 							</div>
@@ -79,7 +79,6 @@
 				<img height="((250/16)*9)px" width="250px" :src="url" :alt="url" />
 			</div>
 		</vs-dialog>
-
 	</div>
 </template>
 

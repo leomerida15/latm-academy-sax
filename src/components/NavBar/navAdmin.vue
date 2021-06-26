@@ -1,6 +1,6 @@
 <template>
 	<div class="center examplex">
-		<vs-navbar :fixed="true" :textWhite="true" dark center-collapsed v-model="active">
+		<vs-navbar :fixed="true" :textWhite="true" center-collapsed v-model="active">
 			<template #left>
 				<img src="/logo2.png" alt="" />
 			</template>
@@ -19,7 +19,7 @@
 
 					<template #footer>
 						<div class="con-footer">
-							<vs-button class="success-text" @click="exit" dark transparent>
+							<vs-button class="success-text" @click="exit" transparent>
 								{{ $t('yes') }}
 							</vs-button>
 							<vs-button :active="true" @click="activeSalir = false" transparent>

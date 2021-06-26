@@ -1,5 +1,5 @@
-<template lang="html">
-	<section class="admin-curses">
+<template>
+	<section class="contras">
 		<div class="center">
 			<h2 class="primary-text">{{ $t('Courses.title') }}</h2>
 		</div>
@@ -81,8 +81,3 @@
 		},
 	});
 </script>
-
-<style scoped lang="scss">
-	.admin-curses {
-	}
-</style>

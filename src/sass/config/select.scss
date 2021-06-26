@@ -22,14 +22,19 @@ select {
 }
 
 select:hover {
-	border-radius: 12px 12px 0px 0px;
 	background: rgba(var(--vs-background), 1);
 
-	color: #a4adb5;
+	color: #54595e;
+}
+
+.vs-input:hover {
+	background: rgba(var(--vs-background), 1);
+
+	color: #54595e;
 }
 
 option {
-	color: #a4adb5;
+	color: #54595e;
 }
 
 .select-items div:hover,

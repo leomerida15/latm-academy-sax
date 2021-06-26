@@ -1,6 +1,6 @@
 <template>
 	<div class="center examplex">
-		<vs-navbar :fixed="true" :textWhite="true" dark center-collapsed v-model="active">
+		<vs-navbar :fixed="true" :textWhite="true" center-collapsed v-model="active">
 			<template #left>
 				<img src="/logo2.png" alt="" />
 			</template>

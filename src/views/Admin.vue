@@ -1,7 +1,6 @@
 <template>
 	<div class="admin">
 		<side-bar />
-		<nav-admin />
 		<br />
 		<br />
 		<br />

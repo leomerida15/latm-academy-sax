@@ -6,44 +6,37 @@
 			</template>
 			<br />
 
-			<vs-sidebar-item id="home">
-				<template #icon>
-					<v-icon name="flag"></v-icon>
-				</template>
-				Home
-			</vs-sidebar-item>
-			<vs-sidebar-item to="/front/academys" id="Academys">
-				<template #icon>
-					<v-icon name="rocket"></v-icon>
-				</template>
-				Academys
-			</vs-sidebar-item>
-			<vs-sidebar-item to="/front/institutes" id="Institutes">
-				<template #icon>
-					<v-icon name="rocket"></v-icon>
-				</template>
-				Institutes
-			</vs-sidebar-item>
 			<vs-sidebar-item to="/front/courses" id="Courses">
 				<template #icon>
-					<v-icon name="rocket"></v-icon>
+					<v-icon name="book"></v-icon>
 				</template>
 				Courses
 			</vs-sidebar-item>
 
 			<template #footer>
 				<vs-row justify="space-between">
-					<vs-avatar>
-						<img src="https://vuesax.com/avatars/avatar-5.png" alt="" />
-						<br />
-					</vs-avatar>
-
-					<vs-avatar badge-color="danger" badge-position="top-right">
-						<v-icon name="bell"></v-icon>
-						<template #badge>
-							28
+					<vs-button :to="'/auth/login'" transparent :textWhite="false" @click="activeSalir = true">
+						{{ $t('exit.btn') }}
+					</vs-button>
+					<vs-dialog :blur="true" width="550px" not-center v-model="activeSalir">
+						<template #header>
+							<h2 class="s-center not-margin primary-text">
+								{{ $t('exit.title') }}
+								<b>?</b>
+							</h2>
 						</template>
-					</vs-avatar>
+
+						<template #footer>
+							<div class="con-footer">
+								<vs-button class="success-text" @click="exit" transparent>
+									{{ $t('yes') }}
+								</vs-button>
+								<vs-button :active="true" @click="activeSalir = false" transparent>
+									{{ $t('no') }}
+								</vs-button>
+							</div>
+						</template>
+					</vs-dialog>
 				</vs-row>
 			</template>
 		</vs-sidebar>
@@ -52,7 +45,6 @@
 <script lang="ts">
 	// modules
 	import Vue from 'vue';
-	import { Academy } from '../../../../academy/server/src/config/Intf';
 
 	export default Vue.extend({
 		name: 'side-bar-index',
@@ -60,15 +52,23 @@
 		mounted() {},
 		data() {
 			return {
-				active: 'home',
+				active: 'Courses',
+				activeSalir: false,
 			};
 		},
-		methods: {},
+		methods: {
+			exit() {
+				localStorage.clear();
+				this.activeSalir = false;
+				this.$router.push({ name: 'Home' });
+			},
+		},
 		computed: {},
 	});
 </script>
 
 <style scoped lang="scss">
-	.side-bar-index {
+	.vs-dialog {
+		background-color: var(--contras);
 	}
 </style>

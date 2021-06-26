@@ -41,16 +41,9 @@
 						:label-placeholder="$t('academys.create.form.en.description')"
 					></vs-input>
 
-					<div class="select">
-						<select placeholder="Select" v-model="body.Institute" :color="success">
-							<option value="" disabled selected>{{ $t('Courses.create.form.Institute') }}</option>
-							<option v-for="(item, i) in Institutes" :key="i" :value="item._id">{{ item.name }}</option>
-						</select>
-					</div>
-
-					<div class="select">
+					<div class="select m-cols-2">
 						<select placeholder="Select" v-model="body.playlistid" :color="success">
-							<option value="" disabled selected>{{ $t('Courses.create.form.playList') }}</option>
+							<option value="" disabled selected>{{ $t('Courses.create.form.playlistid') }}</option>
 							<option v-for="(item, i) in lists" :key="i" :value="item.id">{{ item.snippet.title }}</option>
 						</select>
 					</div>

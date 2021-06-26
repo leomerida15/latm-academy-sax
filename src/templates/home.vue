@@ -1,64 +1,202 @@
 <template>
 	<div>
-		<section class="home-item-1">
-			<br />
-			<br />
-			<br />
-			<br />
-			<item1 />
-		</section>
-		<section class="home-item-2">
-			<br />
-			<br />
-			<br />
-			<br />
-			<item2 />
-		</section>
-		<div class="degrade-1">
-			<item3 />
-		</div>
+		<vs-dialog not-close :loading="loading" @close="back" :prevent-close="true" :blur="true" v-model="active">
+			<template #header>
+				<h1 class="primary-text not-margin">
+					{{ $t('login.success') }}
+					<b class="">!</b>
+				</h1>
+			</template>
 
-		<br />
-		<br />
-		<br />
-		<br />
-		<item4 />
+			<template>
+				<div class="center">
+					<vs-alert success :progress="progress" v-model="TimeAlertSuccess">
+						<template #title>
+							{{ $t('login.success') }}
+						</template>
+					</vs-alert>
+
+					<vs-alert danger :progress="progress" v-model="TimeAlertDanger">
+						<template #title>
+							{{ $t('login.wrong.title') }}
+						</template>
+					</vs-alert>
+					<br />
+				</div>
+			</template>
+
+			<div class="con-form">
+				<vs-input success type="email" v-model="body.email" :placeholder="$t('sign_up.email.label')">
+					<template #icon #message-success>
+						<v-icon name="at"></v-icon>
+					</template>
+
+					<template v-if="valid.email.alert" #message-danger>
+						{{ $t(valid.email.msg) }}
+					</template>
+				</vs-input>
+
+				<vs-input success type="password" v-model="body.password" :placeholder="$t('login.password')">
+					<template #icon #message-success>
+						<v-icon name="lock"></v-icon>
+					</template>
+
+					<template v-if="valid.password.alert" #message-danger>
+						{{ $t(valid.password.msg) }}
+					</template>
+				</vs-input>
+			</div>
+			<template #footer>
+				<div class="footer-dialog">
+					<vs-button @click="login" block>
+						{{ $t('login.login') }}
+					</vs-button>
+
+					<br />
+
+					<div class="new">
+						{{ $t('login.not_account') }}
+						<router-link :to="'/front/auth/register'">{{ $t('login.forgot_password') }}</router-link>
+					</div>
+				</div>
+			</template>
+		</vs-dialog>
 	</div>
 </template>
 
 <script lang="ts">
-	// modules
+	// moduls
 	import Vue from 'vue';
-
-	import item1 from '@/components/home/item-1.vue';
-	import item2 from '@/components/home/item-2.vue';
-	import item3 from '@/components/home/item-3.vue';
-	import item4 from '@/components/home/item-4.vue';
+	import { AxiosResponse } from 'axios';
 
 	export default Vue.extend({
 		name: 'home',
 		props: [],
-		components: {  item1, item2, item3, item4 },
 		mounted() {},
 		data() {
-			return {};
+			return {
+				TimeAlertSuccess: false,
+				TimeAlertDanger: false,
+				time: 4000,
+				progress: 0,
+				body: { email: '', password: '' },
+				valid: {
+					email: { alert: false, msg: '' },
+					password: { alert: false, msg: '' },
+				},
+				loading: false,
+				aa: true,
+			};
 		},
-		methods: {},
-		computed: {},
+		methods: {
+			Alert(type: boolean) {
+				const rol: any = localStorage.getItem('rol');
+				if (type) {
+					this.TimeAlertSuccess = true;
+
+					const interval = setInterval(() => {
+						this.progress++;
+					}, this.time / 100);
+
+					setTimeout(() => {
+						this.TimeAlertSuccess = false;
+						clearInterval(interval);
+						this.progress = 0;
+						this.$router.push({ name: rol });
+					}, this.time);
+				} else {
+					this.TimeAlertDanger = true;
+
+					const interval = setInterval(() => {
+						this.progress++;
+					}, this.time / 100);
+
+					setTimeout(() => {
+						this.TimeAlertDanger = false;
+						clearInterval(interval);
+						this.progress = 0;
+					}, this.time);
+				}
+			},
+			back() {
+				this.$router.push({ name: 'Home' });
+			},
+			async login() {
+				try {
+					let valid: number = 0;
+					const { email, password } = this.body;
+
+					if (!email || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+						this.valid.email.alert = true;
+						this.valid.email.msg = 'sign_up.email.invalid.pattern';
+						valid++;
+					} else if (!email) {
+						this.valid.email.alert = true;
+						this.valid.email.msg = 'sign_up.email.invalid.required';
+						valid++;
+					}
+
+					if (password.length < 1 && this.getProgress < 80) {
+						this.valid.password.alert = true;
+						this.valid.password.msg = 'sign_up.password.invalid.required';
+						valid++;
+					}
+
+					if (valid > 0) throw 'no cumple con los criteriosde login';
+					this.loading = true;
+					const resp: AxiosResponse = await Vue.axios.post('/auth/login', this.body);
+
+					localStorage.setItem('token', resp.data.info.token);
+					localStorage.setItem('rol', resp.data.info.rol);
+
+					this.Alert(true);
+				} catch (err) {
+					this.Alert(false);
+					console.clear();
+					console.error(err);
+				}
+				this.loading = false;
+			},
+		},
+		computed: {
+			getProgress() {
+				let progress = 0;
+
+				// at least one number
+
+				if (/\d/.test(this.body.password)) {
+					progress += 20;
+				}
+
+				// at least one capital letter
+
+				if (/(.*[A-Z].*)/.test(this.body.password)) {
+					progress += 20;
+				}
+
+				// at menons a lowercase
+
+				if (/(.*[a-z].*)/.test(this.body.password)) {
+					progress += 20;
+				}
+
+				// more than 5 digits
+
+				if (this.body.password.length >= 6) {
+					progress += 20;
+				}
+
+				// at least one special character
+
+				if (/[^A-Za-z0-9]/.test(this.body.password)) {
+					progress += 20;
+				}
+
+				return progress;
+			},
+			active() {
+				return this.$route.name === 'Home';
+			},
+		},
 	});
 </script>
-
-<style lang="scss">
-	.home-item-2 {
-		background-image: url('/img/fondos/curvo-claro-oscuro.png');
-		background-size: cover;
-		margin: 0;
-	}
-	.degrade-1 {
-		background-image: url('/img/fondos/degrade-2.png');
-		background-size: cover;
-		margin: 0;
-	}
-	.home-item-3 {
-	}
-</style>
