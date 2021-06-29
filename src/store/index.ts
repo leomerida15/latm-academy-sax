@@ -9,8 +9,8 @@ import Swal from 'sweetalert2';
 import Academys from './models/Academeys';
 import Institutes from './models/Institutes';
 import Courses from './models/Courses';
-// @ts-ignore
-import countrys from 'country-region-data/data';
+import Playlistid from './models/Playlistid';
+
 import { AxiosResponse } from 'axios';
 
 Vue.use(Vuex);
@@ -19,5 +19,5 @@ export default new Vuex.Store({
 	state: {},
 	mutations: {},
 	actions: {},
-	modules: { Academys, Institutes, Courses },
+	modules: { Academys, Institutes, Courses, Playlistid },
 });

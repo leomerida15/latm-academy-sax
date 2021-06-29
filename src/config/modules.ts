@@ -11,7 +11,7 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 
 // config
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = 'http://localhost:5050';
 // axios.defaults.baseURL = 'https://latam-academy-sax.herokuapp.com';
 
 axios.defaults.headers.common['token'] = localStorage.getItem('token');

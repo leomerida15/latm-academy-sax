@@ -19,7 +19,7 @@
 					<vs-td>
 						<div class="ed-container">
 							<div>
-								<vs-button icon circle color="primary" @click="openImg(dato.name, dato.image)">
+								<vs-button icon circle color="primary" @click="openList(i)">
 									<v-icon name="video"></v-icon>
 								</vs-button>
 							</div>
@@ -117,6 +117,10 @@
 			editAlert(i: number) {
 				this.$router.push({ name: 'edit-Course' });
 				this.define_item(i);
+			},
+			openList(i: number) {
+				this.define_item(i);
+				this.$router.push({ name: 'playlistid-Course' });
 			},
 			recoursesAlert(i: number) {
 				this.$router.push({ name: 'recourses-Course' });

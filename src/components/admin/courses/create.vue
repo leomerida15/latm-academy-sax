@@ -197,7 +197,7 @@
 				this.loading = true;
 				try {
 					// define vars
-					const { image, resources }: any = this.body;
+					const { image, resources, playlistid }: any = this.body;
 					const body = new FormData();
 					body.append('image', image);
 
@@ -219,6 +219,10 @@
 					const rec: never[] = await Promise.all(item);
 
 					this.body.resources = rec;
+
+					const youtube: AxiosResponse = await Vue.axios.get('/api/log/' + playlistid + '/items');
+
+					this.body.playlistid = youtube.data.info;
 
 					//
 					const resp: boolean = await this.createCourse(this.body);

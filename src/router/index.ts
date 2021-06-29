@@ -37,78 +37,7 @@ const routes: Array<RouteConfig> = [
 				},
 				component: () => import('@/templates/admin-Courses.vue'),
 			},
-			{
-				path: '/front/academys',
-				name: 'Admin-Academys',
-				meta: {
-					Auth: true,
-					rol: 'Admin',
-				},
-				component: () => import('@/templates/admin-Acadmys.vue'),
-			},
-			{
-				path: '/front/academys/delete',
-				name: 'delete-Academy',
-				meta: {
-					Auth: true,
-					rol: 'Admin',
-				},
-				component: () => import('@/templates/admin-Acadmys.vue'),
-			},
-			{
-				path: '/front/academys/edit',
-				name: 'edit-Academy',
-				meta: {
-					Auth: true,
-					rol: 'Admin',
-				},
-				component: () => import('@/templates/admin-Acadmys.vue'),
-			},
-			{
-				path: '/front/academys/create',
-				name: 'create-Academy',
-				meta: {
-					Auth: true,
-					rol: 'Admin',
-				},
-				component: () => import('@/templates/admin-Acadmys.vue'),
-			},
-			{
-				path: '/front/institutes',
-				name: 'Admin-Institutes',
-				meta: {
-					Auth: true,
-					rol: 'Admin',
-				},
-				component: () => import('@/templates/admin-Institutes.vue'),
-			},
-			{
-				path: '/front/institutes/delete',
-				name: 'delete-Institute',
-				meta: {
-					Auth: true,
-					rol: 'Admin',
-				},
-				component: () => import('@/templates/admin-Institutes.vue'),
-			},
-			{
-				path: '/front/institutes/edit',
-				name: 'edit-Institute',
-				meta: {
-					Auth: true,
-					rol: 'Admin',
-				},
-				component: () => import('@/templates/admin-Institutes.vue'),
-			},
-			{
-				path: '/front/institutes/create',
-				name: 'create-Institute',
-				meta: {
-					Auth: true,
-					rol: 'Admin',
-				},
-				component: () => import('@/templates/admin-Institutes.vue'),
-			},
+
 			{
 				path: '/front/courses',
 				name: 'Admin-Courses',
@@ -153,6 +82,33 @@ const routes: Array<RouteConfig> = [
 					rol: 'Admin',
 				},
 				component: () => import('@/templates/admin-Courses.vue'),
+			},
+			{
+				path: '/front/courses/playlistid',
+				name: 'playlistid-Course',
+				meta: {
+					Auth: true,
+					rol: 'Admin',
+				},
+				component: () => import('@/templates/admin-playlistid.vue'),
+			},
+			{
+				path: '/front/courses/playlistid/image',
+				name: 'image-playlistid-Course',
+				meta: {
+					Auth: true,
+					rol: 'Admin',
+				},
+				component: () => import('@/templates/admin-playlistid.vue'),
+			},
+			{
+				path: '/front/users',
+				name: 'admin-users',
+				meta: {
+					Auth: true,
+					rol: 'Admin',
+				},
+				component: () => import('@/templates/admin-Users.vue'),
 			},
 		],
 	},

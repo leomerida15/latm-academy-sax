@@ -2,7 +2,7 @@
 	<div class="academys-create">
 		<vs-dialog @close="exit" :loading="loading" prevent-close :blur="true" width="550px" not-center v-model="active">
 			<template #header>
-				<h2 class="primary-text not-margin">{{ $t('Courses.create.title') }} {{ loading }}</h2>
+				<h2 class="primary-text not-margin">{{ $t('Courses.create.title') }}</h2>
 			</template>
 
 			<template>
@@ -39,14 +39,7 @@
 						:label-placeholder="$t('academys.create.form.en.description')"
 					></vs-input>
 
-					<div class="select">
-						<select placeholder="Select" v-model="item.Institute" :color="success">
-							<option value="" disabled selected>{{ $t('Courses.create.form.Institute') }}</option>
-							<option v-for="(item, i) in Institutes" :key="i" :value="item._id">{{ item.name }}</option>
-						</select>
-					</div>
-
-					<div class="select">
+					<div class="select m-cols-2	">
 						<select placeholder="Select" v-model="item.playlistid" :color="success">
 							<option value="" disabled selected>{{ $t('Courses.create.form.playList') }}</option>
 							<option v-for="(item, i) in lists" :key="i" :value="item.id">{{ item.snippet.title }}</option>

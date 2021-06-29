@@ -12,6 +12,12 @@
 				</template>
 				Courses
 			</vs-sidebar-item>
+			<vs-sidebar-item to="/front/users" id="users">
+				<template #icon>
+					<v-icon name="book"></v-icon>
+				</template>
+				Users
+			</vs-sidebar-item>
 
 			<template #footer>
 				<vs-row justify="space-between">
