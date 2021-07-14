@@ -1,26 +1,38 @@
 <template>
 	<section class="admin-users">
-		<h1>admin-users Component</h1>
+		<h1>{{ Slcourses }}</h1>
+
+		<create-users :courses="Slcourses" :active="this.$route.name === 'create-users'" />
 	</section>
 </template>
 
 <script lang="ts">
 	// modules
 	import Vue from 'vue';
+	import { mapState, mapActions } from 'vuex';
+	// components
+	import createUsers from '@/components/admin/Users/create.vue';
 
 	export default Vue.extend({
 		name: 'admin-users',
 		props: [],
-		mounted() {},
+		components: { createUsers },
+		async mounted() {
+			await this.getCourses();
+		},
 		data() {
 			return {};
 		},
-		methods: {},
-		computed: {},
+		methods: { ...mapActions('Users', ['getCourses']) },
+		computed: {
+			...mapState('Users', ['courses']),
+			Slcourses() {
+				return this.courses.map((course: any) => {
+					const { name } = course.es;
+					const { _id } = course;
+					return { name, _id };
+				});
+			},
+		},
 	});
 </script>
-
-<style scoped lang="scss">
-	.admin-users {
-	}
-</style>

@@ -10,6 +10,7 @@ import Academys from './models/Academeys';
 import Institutes from './models/Institutes';
 import Courses from './models/Courses';
 import Playlistid from './models/Playlistid';
+import Users from './models/Users';
 
 import { AxiosResponse } from 'axios';
 
@@ -19,5 +20,5 @@ export default new Vuex.Store({
 	state: {},
 	mutations: {},
 	actions: {},
-	modules: { Academys, Institutes, Courses, Playlistid },
+	modules: { Academys, Institutes, Courses, Playlistid, Users },
 });

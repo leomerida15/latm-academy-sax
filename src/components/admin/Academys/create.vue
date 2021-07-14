@@ -1,6 +1,14 @@
 <template>
 	<div class="academys-create">
-		<vs-dialog @close="exit" :loading="loading" prevent-close :blur="true" width="550px" not-center v-model="active">
+		<vs-dialog
+			@close="exit"
+			:loading="loading"
+			prevent-close
+			:blur="true"
+			width="550px"
+			not-center
+			v-model="active"
+		>
 			<template #header>
 				<h2 class="primary-text not-margin">
 					{{ $t('academys.create.title') }}
@@ -26,12 +34,20 @@
 			<div class="con-content">
 				<div class="ed-grid m-grid-2">
 					<!-- names -->
-					<vs-input v-model="body.es.name" type="text" :label-placeholder="$t('academys.create.form.es.name')">
+					<vs-input
+						v-model="body.es.name"
+						type="text"
+						:label-placeholder="$t('academys.create.form.es.name')"
+					>
 						<template v-if="validEmail" #message-success>
 							Email Valid
 						</template>
 					</vs-input>
-					<vs-input v-model="body.en.name" type="text" :label-placeholder="$t('academys.create.form.en.name')"></vs-input>
+					<vs-input
+						v-model="body.en.name"
+						type="text"
+						:label-placeholder="$t('academys.create.form.en.name')"
+					></vs-input>
 
 					<!-- descriptions -->
 					<vs-input
@@ -48,7 +64,12 @@
 					<!-- styles -->
 					<div class="ed-grid s-grid-5">
 						<div class="input-color-form s-cols-1">
-							<input v-model="body.style.color" id="input-color" class="input-color validate" type="color" />
+							<input
+								v-model="body.style.color"
+								id="input-color"
+								class="input-color validate"
+								type="color"
+							/>
 						</div>
 						<div class="input-field s-cols-4">
 							<vs-input v-model="body.style.color" type="text" />

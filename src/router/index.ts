@@ -110,6 +110,15 @@ const routes: Array<RouteConfig> = [
 				},
 				component: () => import('@/templates/admin-Users.vue'),
 			},
+			{
+				path: '/front/users/create',
+				name: 'create-users',
+				meta: {
+					Auth: true,
+					rol: 'Admin',
+				},
+				component: () => import('@/templates/admin-Users.vue'),
+			},
 		],
 	},
 	{
