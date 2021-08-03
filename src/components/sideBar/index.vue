@@ -29,6 +29,7 @@
 							<h2 class="s-center not-margin primary-text">
 								{{ $t('exit.title') }}
 								<b>?</b>
+								<v-icon name="flag"></v-icon>
 							</h2>
 						</template>
 

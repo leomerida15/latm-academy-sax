@@ -1,113 +1,157 @@
 <template>
-	<div class="center examplex">
-		<vs-table striped>
+	<div class="center">
+		<vs-table>
 			<template #thead>
 				<vs-tr>
-					<vs-th v-for="(key, i) in keys" :key="i">
-						{{ $t(key) }}
+					<vs-th>
+						Nombre
+					</vs-th>
+					<vs-th>
+						Descriccion
+					</vs-th>
+					<vs-th>
+						id
 					</vs-th>
 				</vs-tr>
 			</template>
 			<template #tbody>
-				<vs-tr :key="i" v-for="(dato, i) in $vs.getPage(tdata, page, max)" :data="dato">
+				<vs-tr :key="i" v-for="(tr, i) in tdata">
 					<vs-td>
-						{{ dato.name }}
+						{{ tr.name }}
 					</vs-td>
 					<vs-td>
-						{{ dato.description }}
+						{{ tr.description }}
 					</vs-td>
 					<vs-td>
-						<div class="ed-container">
-							<div>
-								<vs-button icon circle color="primary" @click="openList(i)">
-									<v-icon name="video"></v-icon>
-								</vs-button>
+						{{ tr._id }}
+					</vs-td>
+
+					<template #expand>
+						<div class="con-content">
+							<div class="ed-container">
+								<div class="m-50">
+									<div class="ed-grid m-grid-2">
+										<div>
+											<vs-card type="2">
+												<template #img>
+													<img :src="tr.image" alt="" />
+												</template>
+											</vs-card>
+											<h1 class="primary-text">{{ tr.name }}</h1>
+										</div>
+
+										<div>
+											<div class="ed-container">
+												<div class="s-70">
+													<template>
+														<div class="center con-selects">
+															<vs-select :color="success" v-model="PlayListItem">
+																<vs-option :label="'modulos'" :value="''" disabled>
+																	modulos
+																</vs-option>
+																<vs-option
+																	:label="i + 1"
+																	v-for="(module, i) in tr.modules"
+																	:key="i"
+																	:value="module"
+																>
+																	{{ i + 1 }}
+																</vs-option>
+															</vs-select>
+														</div>
+													</template>
+												</div>
+												<div class="s-30">
+													<vs-button @click="list_item(i)" :active="true">ver!</vs-button>
+												</div>
+											</div>
+											<br />
+											<vs-table style="overflow: hidden;" id="table-list">
+												<template #thead>
+													<vs-tr>
+														<vs-th>
+															clases
+														</vs-th>
+													</vs-tr>
+												</template>
+												<template #tbody>
+													<vs-tr :key="j" v-for="(item, j) in PlayList" :data="item">
+														<vs-td>
+															<div class="ed-container">
+																{{ item.snippet.title }}
+
+																<vs-button @click="video(j)" border :active="false">
+																	Ver
+																</vs-button>
+															</div>
+														</vs-td>
+													</vs-tr>
+												</template>
+											</vs-table>
+											<br />
+											<br />
+											<br />
+											<br />
+										</div>
+									</div>
+								</div>
+
+								<div class="m-50 center" :id="`video`"></div>
 							</div>
 						</div>
-					</vs-td>
-					<vs-td>
-						<div class="ed-container">
-							<div>
-								<vs-button icon circle color="primary" @click="openImg(dato.name, dato.image)">
-									<v-icon name="image"></v-icon>
-								</vs-button>
-							</div>
-						</div>
-					</vs-td>
-					<vs-td>
-						<div class="ed-container">
-							<div>
-								<vs-button icon circle color="primary" @click="recoursesAlert(i)">
-									<v-icon name="folder"></v-icon>
-								</vs-button>
-							</div>
-						</div>
-					</vs-td>
-					<vs-td>
-						<div class="ed-container">
-							<div class="s-50">
-								<vs-button @click="editAlert(i)" icon circle color="primary">
-									<v-icon name="edit"></v-icon>
-								</vs-button>
-							</div>
-							<div class="s-50">
-								<vs-button @click="deleteAlert(i)" icon circle color="danger">
-									<v-icon name="trash"></v-icon>
-								</vs-button>
-							</div>
-						</div>
-					</vs-td>
-					<vs-td>
-						{{ dato._id }}
-					</vs-td>
+					</template>
 				</vs-tr>
 			</template>
-			<template #footer>
-				<vs-pagination v-model="page" :length="$vs.getLength(tdata, max)" />
-			</template>
 		</vs-table>
-
-		<!-- image -->
-		<vs-dialog not-center v-model="img">
-			<template #header>
-				<h4 class="not-margin primary-text">
-					{{ imgName }}
-				</h4>
-			</template>
-
-			<div class="con-content s-center">
-				<img height="((250/16)*9)px" width="250px" :src="url" :alt="url" />
-			</div>
-		</vs-dialog>
 	</div>
 </template>
-
 <script lang="ts">
-	// modules
 	import Vue from 'vue';
-	import { mapActions, mapMutations } from 'vuex';
-	// components
+	import { AxiosResponse } from 'axios';
 
 	export default Vue.extend({
 		name: 'list-Courses',
 		props: ['keys', 'tdata'],
 		components: {},
 		mounted() {},
-		data() {
-			return {
-				editActive: false,
-				edit: null,
-				editProp: {},
-				page: 1,
-				max: 4,
-				img: false,
-				url: '',
-				imgName: '',
-				remove: false,
-				name: '',
-				id: '',
-			};
+		data: () => ({
+			editActive: false,
+			edit: null,
+			editProp: '',
+			search: '',
+			allCheck: false,
+			page: 1,
+			max: 3,
+			active: 0,
+			selected: [],
+			PlayListItem: '',
+			PlayList: [],
+		}),
+		methods: {
+			async list_item(i: number): Promise<void> {
+				const resp: AxiosResponse<any> = await Vue.axios.get('/api/log/' + this.PlayListItem + '/items');
+
+				console.clear();
+
+				console.log('resp.data', resp.data);
+
+				this.PlayList = resp.data.info;
+			},
+			async video(i: number): Promise<void> {
+				// @ts-ignore
+				const id: any = this.PlayList[i].snippet.resourceId.videoId;
+
+				const resp: AxiosResponse<any> = await Vue.axios.get('/api/log/video/' + id);
+
+				console.clear();
+
+				console.log('resp.data', resp.data);
+
+				const video: HTMLDivElement | any = document.getElementById('video');
+				video.innerHTML = resp.data.info;
+			},
 		},
+		/*
 		methods: {
 			...mapMutations('Courses', ['define_item']),
 			deleteAlert(i: number) {
@@ -136,18 +180,15 @@
 				this.url = '';
 				this.imgName = '';
 			},
-		},
+		},*/
 		computed: {},
 	});
 </script>
 
-<style lang="scss">
-	.input-color-list {
-		position: relative;
-		overflow: hidden;
-		width: 36px;
-		height: 36px;
-		border-radius: 40px;
-		box-shadow: 1px 1px 3px 0px grey;
+<style lang="scss" scoped>
+	#table-list > vs-table > table {
+		width: none;
+		min-width: none !important;
+		background-color: red;
 	}
 </style>

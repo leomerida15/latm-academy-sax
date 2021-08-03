@@ -62,16 +62,15 @@
 			...mapState('Courses', ['info', 'lists', 'Institutes', 'item']),
 			tdata() {
 				const data: any[] = this.info.map((a: any) => {
-					const { name, description } = a[localStorage.getItem('lang') ?? 'es'];
 					const { secure_url } = a.image;
-					const { _id, playlistid, resources } = a;
+					const { _id, modules, resources, name, description } = a;
 
 					return {
 						_id,
 						name,
 						description,
 						image: secure_url,
-						playlistid,
+						modules,
 						resources,
 					};
 				});

@@ -28,8 +28,7 @@
 			...mapState('Users', ['courses']),
 			Slcourses() {
 				return this.courses.map((course: any) => {
-					const { name } = course.es;
-					const { _id } = course;
+					const { _id, name } = course;
 					return { name, _id };
 				});
 			},

@@ -47,8 +47,15 @@
 
 .vs-table.striped .vs-table__tr:nth-child(2n) {
 	background: rgba(var(--vs-dark), 1) !important;
+	width: none;
+	min-width: none;
 }
 
 .input-color:disabled {
 	opacity: 1;
+}
+
+.vs-table table {
+	width: none;
+	min-width: none;
 }

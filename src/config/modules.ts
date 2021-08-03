@@ -6,6 +6,10 @@ Vue.use(Vuesax, {
 	// options here
 });
 
+// ||__________________vue-select___________||
+import vSelect from 'vue-select';
+Vue.component('v-select', vSelect);
+
 // ||__________________vue-axios___________||
 import axios from 'axios';
 import VueAxios from 'vue-axios';

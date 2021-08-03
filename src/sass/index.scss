@@ -13,6 +13,7 @@
 
 // select
 @import './config/select.scss';
+@import 'vue-select/src/scss/vue-select.scss';
 
 /* width */
 ::-webkit-scrollbar {
@@ -130,8 +131,10 @@ body {
 }
 
 // styles
-@import './config/table.scss';
 @import './config/dialog.scss';
+
+// table
+@import './config/table.scss';
 
 // ed-grid
 @import '~ed-grid/ed-grid';

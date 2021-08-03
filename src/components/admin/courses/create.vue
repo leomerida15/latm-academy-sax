@@ -1,9 +1,17 @@
 <template>
 	<div class="academys-create">
-		<vs-dialog @close="exit" :loading="loading" prevent-close :blur="true" width="550px" not-center v-model="active">
+		<vs-dialog
+			@close="exit"
+			:loading="loading"
+			prevent-close
+			:blur="true"
+			width="550px"
+			not-center
+			v-model="active"
+		>
 			<template #header>
 				<h2 class="primary-text not-margin">
-					{{ $t('Courses.create.title') }}
+					Crear Cursos
 				</h2>
 			</template>
 
@@ -26,26 +34,44 @@
 			<div class="con-content">
 				<div class="ed-grid m-grid-2">
 					<!-- names -->
-					<vs-input v-model="body.es.name" type="text" :label-placeholder="$t('academys.create.form.es.name')"></vs-input>
-					<vs-input v-model="body.en.name" type="text" :label-placeholder="$t('academys.create.form.en.name')"></vs-input>
+					<vs-input v-model="body.name" type="text" label-placeholder="nombre"></vs-input>
 
 					<!-- descriptions -->
-					<vs-input
-						v-model="body.es.description"
-						type="text"
-						:label-placeholder="$t('academys.create.form.es.description')"
-					></vs-input>
-					<vs-input
-						v-model="body.en.description"
-						type="text"
-						:label-placeholder="$t('academys.create.form.en.description')"
-					></vs-input>
+					<vs-input v-model="body.description" type="text" label-placeholder="descriccion"></vs-input>
 
-					<div class="select m-cols-2">
-						<select placeholder="Select" v-model="body.playlistid" :color="success">
-							<option value="" disabled selected>{{ $t('Courses.create.form.playlistid') }}</option>
-							<option v-for="(item, i) in lists" :key="i" :value="item.id">{{ item.snippet.title }}</option>
-						</select>
+					<!-- modules -->
+					<h4 class="primary-text not-margin">
+						Modulos
+					</h4>
+					<div v-for="(module, j) in body.modules" :key="j" class="ed-grid s-grid-5 m-cols-2">
+						<div class="s-cols-4">
+							<div class="select">
+								<select placeholder="Select" v-model="body.modules[j]" :color="success">
+									<option value="" disabled selected>modulo</option>
+									<option v-for="(item, i) in lists" :key="i" :value="item.id">{{ item.snippet.title }}</option>
+								</select>
+							</div>
+						</div>
+
+						<div v-if="j < 1">
+							<vs-button @click="body.modules.push('')" circle>
+								<v-icon name="plus"></v-icon>
+							</vs-button>
+						</div>
+						<div v-else>
+							<div class="ed-container">
+								<div class="s-50">
+									<vs-button @click="body.modules.push('')" circle>
+										<v-icon name="plus"></v-icon>
+									</vs-button>
+								</div>
+								<div class="s-50">
+									<vs-button @click="body.modules.splice(j, 1)" circle>
+										<v-icon name="trash"></v-icon>
+									</vs-button>
+								</div>
+							</div>
+						</div>
 					</div>
 
 					<div class="ed-grid">
@@ -65,7 +91,13 @@
 						<!--  -->
 						<vs-button class="conten-form" @click="openFile('filesElem')" flat>
 							recursos
-							<input type="file" id="filesElem" @change="change_recourses" accept="image/*,.pdf,.xlsx,." multiple />
+							<input
+								type="file"
+								id="filesElem"
+								@change="change_recourses"
+								accept="image/*,.pdf,.xlsx,."
+								multiple
+							/>
 						</vs-button>
 
 						<vs-table>
@@ -142,19 +174,12 @@
 				j: 0,
 				editProp: {},
 				body: {
-					Institute: '',
 					list: '',
-					playlistid: '',
+					modules: [''],
 					image: {},
 					resources: [],
-					es: {
-						name: '',
-						description: '',
-					},
-					en: {
-						name: '',
-						description: '',
-					},
+					name: '',
+					description: '',
 				},
 				files_valid: false,
 				imageData: './img/plus.png',
@@ -204,7 +229,6 @@
 					const img: AxiosResponse = await Vue.axios.post('/api/log/file/img/Courses', body);
 					this.body.image = img.data.info;
 
-					let j: number = 0;
 					const item: never[] = resources.map(async (resource: never) => {
 						const body = new FormData();
 						body.append('image', resource);
@@ -220,10 +244,6 @@
 
 					this.body.resources = rec;
 
-					const youtube: AxiosResponse = await Vue.axios.get('/api/log/' + playlistid + '/items');
-
-					this.body.playlistid = youtube.data.info;
-
 					//
 					const resp: boolean = await this.createCourse(this.body);
 					this.Alert(resp);
@@ -232,19 +252,12 @@
 					await this.getCourses();
 
 					this.body = {
-						Institute: '',
 						list: '',
-						playlistid: '',
+						modules: [],
 						image: {},
 						resources: [],
-						es: {
-							name: '',
-							description: '',
-						},
-						en: {
-							name: '',
-							description: '',
-						},
+						name: '',
+						description: '',
 					};
 					this.imageData = '';
 					this.files_valid = false;

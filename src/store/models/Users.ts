@@ -34,6 +34,17 @@ const courses: Module<state, any> = {
 		async createUsers({ commit, state }, body: any) {
 			try {
 				const resp: AxiosResponse = await Vue.axios.post('/auth/registerGrup', body);
+
+				return resp.data.info;
+			} catch (err) {
+				console.error(err);
+				return false;
+			}
+		},
+		async addUsersInCourse({ commit, state }, { body, id }) {
+			try {
+				const resp: any = await Vue.axios.patch(`/admin/course/${id}/users`, body);
+
 				return resp.data.info;
 			} catch (err) {
 				console.error(err);
