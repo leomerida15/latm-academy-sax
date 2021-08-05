@@ -119,6 +119,15 @@ const routes: Array<RouteConfig> = [
 				},
 				component: () => import('@/templates/admin-Users.vue'),
 			},
+			{
+				path: '/front/form/:course/:module',
+				name: 'create-form',
+				meta: {
+					Auth: true,
+					rol: 'Admin',
+				},
+				component: () => import('@/templates/admin-Form.vue'),
+			},
 		],
 	},
 	{

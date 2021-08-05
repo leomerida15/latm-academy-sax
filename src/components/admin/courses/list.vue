@@ -42,7 +42,7 @@
 
 										<div>
 											<div class="ed-container">
-												<div class="s-70">
+												<div class="s-50">
 													<template>
 														<div class="center con-selects">
 															<vs-select :color="success" v-model="PlayListItem">
@@ -61,8 +61,12 @@
 														</div>
 													</template>
 												</div>
-												<div class="s-30">
+												<div class="s-25">
 													<vs-button @click="list_item(i)" :active="true">ver!</vs-button>
+												</div>
+
+												<div class="s-25">
+													<vs-button @click="create_forms(tr._id)" :active="true">Quiz</vs-button>
 												</div>
 											</div>
 											<br />
@@ -149,6 +153,9 @@
 
 				const video: HTMLDivElement | any = document.getElementById('video');
 				video.innerHTML = resp.data.info;
+			},
+			async create_forms(id: string): Promise<void> {
+				this.$router.push({ path: `/front/form/${id}/${this.PlayListItem}` });
 			},
 		},
 		/*
